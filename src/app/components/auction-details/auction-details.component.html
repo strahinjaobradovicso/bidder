@@ -1,0 +1,15 @@
+<div class="auction-details-container">
+
+    <div class="info">
+        <h1>{{auction.ItemModel.title}}</h1>
+        <p>status: {{auction.status}}</p>
+        @if(auction.lastBid) {
+            <p>last bid: {{auction.lastBid}}</p>
+        }
+    </div>
+
+    <div class="description">
+        <p>{{auction.ItemModel.description}}</p>
+    </div>
+
+</div>
