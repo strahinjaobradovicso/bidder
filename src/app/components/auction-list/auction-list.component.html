@@ -1,1 +1,3 @@
-<p>auction-list works!</p>
+@for(auction of auctions; track auction.id) {
+    <app-auction [auction]="auction"></app-auction>
+}

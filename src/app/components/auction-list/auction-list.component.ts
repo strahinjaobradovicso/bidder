@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AuctionModel, AuctionStatus } from '../../interfaces/model/auctionModel';
+import { AuctionModel } from '../../interfaces/model/auctionModel';
 import { AuctionService } from '../../services/auction.service';
 import { AuctionQuery } from '../../interfaces/query/auctionQuery';
 import { toLocal } from '../../util/time';
+import { AuctionComponent } from '../auction/auction.component';
 
 @Component({
   selector: 'app-auction-list',
   standalone: true,
-  imports: [],
+  imports: [AuctionComponent],
   templateUrl: './auction-list.component.html',
   styleUrl: './auction-list.component.css'
 })
