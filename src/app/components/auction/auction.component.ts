@@ -20,6 +20,6 @@ export class AuctionComponent implements OnInit {
   }
 
   openAuctionPage() {
-    this.router.navigateByUrl('/auction-details', { info: this.auction() });
+    this.router.navigate(['/auction-details'], { state: this.auction() });
   }
 }

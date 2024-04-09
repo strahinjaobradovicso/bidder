@@ -1,5 +1,9 @@
 <div class="auction-details-container">
 
+    @if (auction.status === upcoming) {
+        <app-start-countdown [start]="auction.start" (countDownFinished)="onCountDownFinished()"></app-start-countdown>
+    }
+
     <div class="info">
         <h1>{{auction.ItemModel.title}}</h1>
         <p>status: {{auction.status}}</p>
@@ -8,8 +12,12 @@
         }
     </div>
 
+    @if (auction.status === started) {
+        <button (click)="enterAuction()">Enter</button>
+    }
     <div class="description">
         <p>{{auction.ItemModel.description}}</p>
     </div>
+    
 
 </div>

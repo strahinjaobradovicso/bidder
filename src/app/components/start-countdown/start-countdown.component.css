@@ -1,0 +1,9 @@
+.count-down-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.count-down-container div {
+    text-align: center;
+}
