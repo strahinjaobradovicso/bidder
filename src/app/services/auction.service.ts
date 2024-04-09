@@ -4,6 +4,7 @@ import { AuctionQuery } from '../interfaces/query/auctionQuery';
 import { Observable } from 'rxjs';
 import { AuctionModel } from '../interfaces/model/auctionModel';
 import { environment } from '../../environments/environment';
+import { PaginationResponse } from '../interfaces/response/paginationResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AuctionService {
 
   constructor(private http: HttpClient) { }
 
-  getAuctions(query: AuctionQuery): Observable<AuctionModel[]> {
+  getAuctions(query: AuctionQuery): Observable<PaginationResponse<AuctionModel>> {
     let httpParams = new HttpParams();
     httpParams = httpParams.set('page', query.page);
     httpParams = httpParams.set('itemsPerPage', query.itemsPerPage);
@@ -37,7 +38,7 @@ export class AuctionService {
     }
 
     const options = { params: httpParams };
-    return this.http.get<AuctionModel[]>(this.apiUrl, options);
+    return this.http.get<PaginationResponse<AuctionModel>>(this.apiUrl, options);
     
   }
 }

@@ -4,6 +4,7 @@ import { AuctionService } from '../../services/auction.service';
 import { AuctionQuery } from '../../interfaces/query/auctionQuery';
 import { toLocal } from '../../util/time';
 import { AuctionComponent } from '../auction/auction.component';
+import { PaginationResponse } from '../../interfaces/response/paginationResponse';
 
 @Component({
   selector: 'app-auction-list',
@@ -27,7 +28,7 @@ export class AuctionListComponent implements OnInit {
       itemsPerPage: this.itemsPerPage
     }
 
-    this.auctionService.getAuctions(query).subscribe((res: any) => {
+    this.auctionService.getAuctions(query).subscribe((res: PaginationResponse<AuctionModel>) => {
       for (const auction of res.rows) {
         auction.start = toLocal(auction.start.toString());
       }
