@@ -1,5 +1,13 @@
 <div class="model-card">
-    <p>{{auction().ItemModel.title}}</p>
-    <p>{{auction().startingBid}}</p>
-    <p>{{auction().start.toLocaleString()}}</p>
+
+    <div class="img-wrapper">
+        <img src={{auction().ItemModel.imageUrls[0]}} alt="img should be here">
+    </div>
+
+    <div class="text-wrapper">
+        <p>{{auction().ItemModel.title}}</p>
+        <p>{{auction().startingBid}}</p>
+        <p>{{auction().start.toLocaleString()}}</p>
+    </div>
+    
 </div>

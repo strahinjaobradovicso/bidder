@@ -1,3 +1,5 @@
-@for(auction of auctions; track auction.id) {
-    <app-auction [auction]="auction"></app-auction>
-}
+<div class="model-list-container">
+    @for(auction of auctions; track auction.id) {
+        <app-auction [auction]="auction"></app-auction>
+    }
+</div>

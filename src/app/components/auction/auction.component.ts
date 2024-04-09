@@ -13,7 +13,7 @@ export class AuctionComponent implements OnInit {
   auction = input.required<AuctionModel>();
 
   ngOnInit(): void {
-
+    this.auction().ItemModel.imageUrls = [];
   }
 
   openAuctionPage() {
