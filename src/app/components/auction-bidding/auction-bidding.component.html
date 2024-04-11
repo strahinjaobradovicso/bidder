@@ -1,0 +1,34 @@
+<div class="bidding-page">
+
+@if (auctionBid && item) {
+    <div class="bidding-container">
+
+        <div class="slider-container">
+            <app-carousel [images]="item.imageUrls"></app-carousel>
+        </div>
+        
+        <div class="action-container">
+            <div class="bid-container">
+                <h1>{{ auctionBid.askValue }}</h1>
+                <button (click)="bid()" type="button">Bid</button>
+            </div>
+
+
+            <div class="overbid-container">
+                <form [formGroup]="bidForm" (ngSubmit)="overbid()">
+                    <div class="input-container">
+                        <label for="amount"></label>
+                        <input placeholder="0" type="number" formControlName="amount">
+                    </div>
+                    <button type="submit">Overbid</button>
+                </form>
+            </div>
+           
+        </div>
+
+    </div>
+} @else {
+    <p>Auction is not found</p>
+}
+
+</div>
