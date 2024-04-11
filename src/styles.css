@@ -11,4 +11,5 @@ button {
     color: whitesmoke;
     padding: 0.5rem;
     font-size: 1rem;
+    background-color: var(--theme-color);
 }
