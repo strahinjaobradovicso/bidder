@@ -1,0 +1,19 @@
+<div class="slide">
+        <div class="image-container">
+            <img src="{{current()}}" alt="image should be here">
+        </div>
+
+        <div class="controls">
+            <span (click)="previous()" class="arrow left"><i class="fa fa-arrow-circle-left" aria-hidden="true">L</i></span>
+            <span (click)="next()" class="arrow right"><i class="fa fa-arrow-circle-right" aria-hidden="true">R</i></span>
+            
+            <ul>
+                @for (image of images(); let clickedIndex = $index; track image;) {
+                    <li (click)="jump(clickedIndex)" [ngClass]="imageIndex === clickedIndex? 'selected': ''"></li>
+                }
+            </ul>
+        
+        </div>
+
+      
+</div>
