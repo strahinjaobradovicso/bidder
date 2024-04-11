@@ -1,7 +1,9 @@
 .count-down-container {
     display: flex;
-    gap: 20px;
     justify-content: center;
+    gap: 20px;
+    padding: 0rem 1rem;
+    color: grey;
 }
 
 .count-down-container div {

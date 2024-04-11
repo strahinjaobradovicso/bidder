@@ -1,0 +1,36 @@
+.auction-details-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+    width: 60%;
+    margin: auto;
+}
+
+.info {
+    box-shadow: var(--card-shadow);
+    padding: 1rem;
+}
+
+.info p {
+    font-size: 18px;
+    color: grey;
+}
+
+.description {
+    margin-top: 20px;
+    box-shadow: var(--card-shadow);
+    padding: 1rem;
+}
+
+.info button {
+    background-color: var(--theme-color);
+    border-radius: 4px;
+    width: 100%;
+}
+
+@media screen and (max-width: 1000px) {
+    .auction-details-container {
+        grid-template-columns: 1fr;
+    }
+}

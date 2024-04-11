@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuctionModel, AuctionStatus } from '../../interfaces/model/auctionModel';
 import { StartCountdownComponent } from '../start-countdown/start-countdown.component';
+import { CarouselComponent } from '../carousel/carousel.component';
 
 @Component({
   selector: 'app-auction-details',
   standalone: true,
-  imports: [StartCountdownComponent],
+  imports: [StartCountdownComponent, CarouselComponent],
   templateUrl: './auction-details.component.html',
   styleUrl: './auction-details.component.css'
 })
@@ -19,7 +20,6 @@ export class AuctionDetailsComponent {
 
   constructor(private router: Router){
     this.auction = this.router.getCurrentNavigation()!.extras.state  as AuctionModel;
-    this.auction.start = new Date(this.auction.start);
   }
 
   onCountDownFinished(){

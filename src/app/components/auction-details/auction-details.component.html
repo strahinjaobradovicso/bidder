@@ -1,23 +1,22 @@
 <div class="auction-details-container">
-
-    @if (auction.status === upcoming) {
-        <app-start-countdown [start]="auction.start" (countDownFinished)="onCountDownFinished()"></app-start-countdown>
-    }
-
+    <app-carousel [images]="auction.ItemModel.imageUrls"></app-carousel>
     <div class="info">
-        <h1>{{auction.ItemModel.title}}</h1>
-        <p>status: {{auction.status}}</p>
-        @if(auction.lastBid) {
-            <p>last bid: {{auction.lastBid}}</p>
+        <h2>{{auction.ItemModel.title}}</h2>
+        <p>{{auction.start.toLocaleString()}}</p>
+        @if (auction.status === upcoming) {
+            <hr>
+            <app-start-countdown [start]="auction.start" (countDownFinished)="onCountDownFinished()"></app-start-countdown>
+            <hr>
+        }
+        <p>Starting bid: {{auction.startingBid}}</p>
+        @if(auction.status === started) {
+            <button (click)="enterAuction()">Enter</button>
+        }
+        @else if(auction.lastBid) {
+            <p>Last bid: {{ auction.lastBid }}</p>
         }
     </div>
-
-    @if (auction.status === started) {
-        <button (click)="enterAuction()">Enter</button>
-    }
     <div class="description">
         <p>{{auction.ItemModel.description}}</p>
     </div>
-    
-
 </div>
