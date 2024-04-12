@@ -1,0 +1,7 @@
+.auth-navi {
+    display: flex;
+    gap: 1rem;
+}
+button {
+    border-radius: 8px;
+}
