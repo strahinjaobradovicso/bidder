@@ -28,3 +28,14 @@ input {
     padding: 1rem;
     box-shadow: var(--card-shadow);
 }
+
+.model-list-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 16rem));
+    gap: 2rem;
+    justify-content: center;
+}
+
+.model-card {
+    border: black dashed;
+}
