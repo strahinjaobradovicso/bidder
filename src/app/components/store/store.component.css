@@ -1,0 +1,8 @@
+.add-item-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 32px;
+    font-weight: 100;
+}

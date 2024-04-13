@@ -1,0 +1,25 @@
+<app-profile></app-profile>
+<h1>What are you selling?</h1>
+<p>Item remains private until auction is scheduled</p>
+
+<div class="input-form">
+
+    <form [formGroup]="addItemForm" (ngSubmit)="onSubmit()">
+        <div class="inputs">
+            <p>Title</p>
+            <input placeholder="title" type="text" formControlName="title">
+
+            <p>Price</p>
+            <input placeholder="0" type="number" formControlName="price">
+
+            <p>Description</p>
+            <textarea placeholder="description" type="text" formControlName="description"></textarea>
+
+            <p>Images</p>
+            <input placeholder="images" type="file" (change)="this.onFileChange($event)">
+        </div>
+
+        <button [ngStyle]="{'background-color': !addItemForm.valid ? 'grey' : '' }" type="submit">Save</button>
+    </form>
+
+</div>

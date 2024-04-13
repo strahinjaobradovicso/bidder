@@ -7,6 +7,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { StoreComponent } from './components/store/store.component';
 import { ProfileScheduledComponent } from './components/profile-scheduled/profile-scheduled.component';
 import { ProfileWonComponent } from './components/profile-won/profile-won.component';
+import { AddItemComponent } from './components/add-item/add-item.component';
 
 export const routes: Routes = [
     { path: '', component: AuctionListComponent },
@@ -17,4 +18,5 @@ export const routes: Routes = [
     { path: 'profile/store', component: StoreComponent },
     { path: 'profile/scheduled', component: ProfileScheduledComponent },
     { path: 'profile/won', component: ProfileWonComponent },
+    { path: 'profile/store/add', component: AddItemComponent },
 ];

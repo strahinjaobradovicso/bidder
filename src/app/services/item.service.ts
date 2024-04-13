@@ -27,4 +27,22 @@ export class ItemService {
     const options = { params: httpParams };
     return this.http.get<PaginationResponse<ItemModel>>(this.apiUrl, options);
   }
+
+  create(item: any){
+    const formData = new FormData();
+    for (const key in item) {
+      if (Object.prototype.hasOwnProperty.call(item, key)) {
+        const value = item[key];
+        if(key === 'images'){
+          for (const file of value) {
+            formData.append('file', file);
+          }
+        }
+        else {
+          formData.append(key, value);
+        }
+      }
+    }
+    return this.http.post(this.apiUrl, formData);
+  }
 }
