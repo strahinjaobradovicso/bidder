@@ -5,6 +5,8 @@ import { AuctionBiddingComponent } from './components/auction-bidding/auction-bi
 import { LogInComponent } from './components/log-in/log-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { StoreComponent } from './components/store/store.component';
+import { ProfileScheduledComponent } from './components/profile-scheduled/profile-scheduled.component';
+import { ProfileWonComponent } from './components/profile-won/profile-won.component';
 
 export const routes: Routes = [
     { path: '', component: AuctionListComponent },
@@ -13,4 +15,6 @@ export const routes: Routes = [
     { path: 'log-in', component: LogInComponent },
     { path: 'sign-up', component: SignUpComponent },
     { path: 'profile/store', component: StoreComponent },
+    { path: 'profile/scheduled', component: ProfileScheduledComponent },
+    { path: 'profile/won', component: ProfileWonComponent },
 ];
