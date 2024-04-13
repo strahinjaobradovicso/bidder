@@ -7,7 +7,8 @@ export const environment = {
     API_URLS: {
         AUCTION: 'http://localhost:3000/auctions',
         SIGNUP: 'http://localhost:3000/users/signUp',
-        LOGIN: 'http://localhost:3000/auth/login'
+        LOGIN: 'http://localhost:3000/auth/login',
+        ITEM: 'http://localhost:3000/items'
     },
     socket: {
         BIDDING_NAMESPACE: 'http://localhost:3000/auctions'
