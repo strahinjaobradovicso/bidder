@@ -13,3 +13,18 @@ button {
     font-size: 1rem;
     background-color: var(--theme-color);
 }
+
+input {
+    margin-bottom: 1rem;
+    line-height: 1.5rem;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.input-form {
+    overflow: hidden;
+    width: 100%;
+    max-width: 20rem;
+    padding: 1rem;
+    box-shadow: var(--card-shadow);
+}
