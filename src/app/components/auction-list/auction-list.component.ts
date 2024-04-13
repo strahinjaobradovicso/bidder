@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, input } from '@angular/core';
 import { AuctionModel } from '../../interfaces/model/auctionModel';
 import { AuctionService } from '../../services/auction.service';
 import { AuctionQuery } from '../../interfaces/query/auctionQuery';
@@ -20,12 +20,17 @@ export class AuctionListComponent implements OnInit {
   page: number = 1;
   itemsPerPage: number = 12;
 
+  ownerId = input<number>();
+  winnerId = input<number>();
+
   constructor(private auctionService: AuctionService){}
 
   ngOnInit(): void {
     const query: AuctionQuery = {
       page: this.page,
-      itemsPerPage: this.itemsPerPage
+      itemsPerPage: this.itemsPerPage,
+      itemOwner: this.ownerId(),
+      auctionWinner: this.winnerId()
     }
 
     this.auctionService.getAuctions(query).subscribe((res: PaginationResponse<AuctionModel>) => {
