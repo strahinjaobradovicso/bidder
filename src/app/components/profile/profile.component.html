@@ -1,0 +1,34 @@
+@if (this.token) {
+    <div class="profile-navi">
+        <div>
+            <a href="">
+                <span><i class="" aria-hidden="true"></i></span>
+                <p>{{ this.token.username }}</p>
+            </a>
+        </div>
+        <div>
+            <a (click)="logOut()">
+                <span><i class="" aria-hidden="true"></i></span>
+                <p>Log Out</p>
+            </a>
+        </div>
+        <div>
+            <a href="/profile/store">
+                <span><i class="" aria-hidden="true"></i></span>
+                <p>Stored Items</p>
+            </a>
+        </div>
+        <div>
+            <a href="">
+                <span><i class="" aria-hidden="true"></i></span>
+                <p>Scheduled</p>
+            </a>
+        </div>
+        <div>
+            <a href="">
+                <span><i class="" aria-hidden="true"></i></span>
+                <p>Won Auctions</p>
+            </a>
+        </div>
+    </div>
+}

@@ -1,0 +1,29 @@
+.profile-navi {
+    display: flex;
+    gap: 1rem;
+}
+
+.profile-navi div {
+    display: flex;
+    padding: 0 10px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
+}
+.profile-navi {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.profile-navi div:hover {
+    background-color: var(--theme-color);
+    color: whitesmoke;
+}
+
+.profile-navi div:hover a {
+    color: whitesmoke;
+}
