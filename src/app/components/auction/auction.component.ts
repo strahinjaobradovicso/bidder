@@ -1,6 +1,7 @@
 import { Component, OnInit, output, input } from '@angular/core';
 import { AuctionModel } from '../../interfaces/model/auctionModel';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-auction',
@@ -17,6 +18,10 @@ export class AuctionComponent implements OnInit {
 
   ngOnInit(): void {
     this.auction().ItemModel.imageUrls = [];
+    const auctionItem = this.auction().ItemModel;
+    for (const imageModel of auctionItem.ImageModels) {
+      auctionItem.imageUrls.push(environment.API_URL + '/' + imageModel.imageData);
+    }
   }
 
   openAuctionPage() {
