@@ -4,6 +4,7 @@ import { ItemService } from '../../services/item.service';
 import { ProfileComponent } from '../profile/profile.component';
 import { NgStyle } from '@angular/common';
 import { Router } from '@angular/router';
+import { CreateItem } from '../../interfaces/request/createItem';
 
 @Component({
   selector: 'app-add-item',
@@ -33,9 +34,9 @@ export class AddItemComponent {
     if(this.addItemForm.valid){
       const title = this.addItemForm.value.title!;
       const price = this.addItemForm.value.price!;
-      const description = this.addItemForm.value.description;
+      const description = this.addItemForm.value.description || '';
 
-      const item = {
+      const item: CreateItem = {
         title: title,
         price: price,
         description: description,

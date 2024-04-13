@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { ItemQuery } from '../interfaces/query/itemQuery';
 import { ItemModel } from '../interfaces/model/itemModel';
 import { PaginationResponse } from '../interfaces/response/paginationResponse';
+import { CreateItem } from '../interfaces/request/createItem';
 
 @Injectable({
   providedIn: 'root'
@@ -28,12 +29,15 @@ export class ItemService {
     return this.http.get<PaginationResponse<ItemModel>>(this.apiUrl, options);
   }
 
-  create(item: any){
+  create(item: CreateItem){
     const formData = new FormData();
     for (const key in item) {
       if (Object.prototype.hasOwnProperty.call(item, key)) {
-        const value = item[key];
-        if(key === 'images'){
+        const value = item[key as keyof CreateItem];
+        if(!value){
+          continue;
+        }
+        if(Array.isArray(value)){
           for (const file of value) {
             formData.append('file', file);
           }
