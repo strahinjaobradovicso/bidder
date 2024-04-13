@@ -1,0 +1,5 @@
+@if (token) {
+    <h1>Scheduled auctions</h1>
+    <app-profile></app-profile>
+    <app-auction-list [ownerId]="token.userId"></app-auction-list>
+}
