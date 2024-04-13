@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthComponent } from '../auth/auth.component';
 import { AuthModel } from '../../interfaces/model/authModel';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -12,7 +14,16 @@ import { AuthModel } from '../../interfaces/model/authModel';
 export class SignUpComponent {
   action = 'signup'
 
+  constructor(private router: Router, private authService: AuthService){}
+
   signup(auth: AuthModel){
-    console.log(auth);
+    const response = this.authService.signup(auth).subscribe({
+      error: (e) => {
+        console.log(e);
+      },
+      complete: () => {
+        this.router.navigate(['/log-in']);
+      }
+    })
   }
 }

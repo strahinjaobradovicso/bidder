@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { AuthComponent } from '../auth/auth.component';
 import { AuthModel } from '../../interfaces/model/authModel';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-log-in',
@@ -12,7 +15,17 @@ import { AuthModel } from '../../interfaces/model/authModel';
 export class LogInComponent {
   action = 'login'
 
+  constructor(private router: Router, private authService: AuthService){}
+
   login(auth: AuthModel){
-    console.log(auth);
+    this.authService.login(auth).subscribe({
+      error: (e) => {
+        console.log(e);
+      },
+      next: (v:any) => {
+        localStorage.setItem(environment.TOKEN_STORAGE_KEY, v.jwt);
+        this.router.navigate(['/']);
+      }
+    })
   }
 }
