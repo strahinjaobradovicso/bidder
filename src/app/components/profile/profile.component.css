@@ -27,3 +27,11 @@ a {
 .profile-navi div:hover a {
     color: whitesmoke;
 }
+
+@media screen and (max-width: 560px) {
+    .profile-navi {
+        flex-direction: column;
+        max-width: 15rem;
+        margin: auto;
+    }
+}
