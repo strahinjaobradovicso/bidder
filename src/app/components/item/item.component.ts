@@ -9,15 +9,11 @@ import { Router } from '@angular/router';
   templateUrl: './item.component.html',
   styleUrl: './item.component.css'
 })
-export class ItemComponent implements OnInit {
+export class ItemComponent {
 
   item = input.required<ItemModel>();
 
   constructor(private router: Router){}
-
-  ngOnInit(): void {
-    this.item().imageUrls = []
-  }
 
   schedulePage(){
 

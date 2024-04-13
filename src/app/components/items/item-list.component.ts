@@ -4,6 +4,7 @@ import { ItemService } from '../../services/item.service';
 import { ItemQuery } from '../../interfaces/query/itemQuery';
 import { PaginationResponse } from '../../interfaces/response/paginationResponse';
 import { ItemComponent } from '../item/item.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-item-list',
@@ -30,6 +31,12 @@ export class ItemListComponent implements OnInit {
     this.itemService.getUsersItems(query).subscribe((res: PaginationResponse<ItemModel>) => {
       this.items = res.rows;
       this.totalRecords = res.count;
+      for (const item of this.items) {
+        item.imageUrls = [];
+        for (const imageModel of item.ImageModels) {
+          item.imageUrls.push(environment.API_URL + '/' + imageModel.imageData);
+        }
+      }
     })
   }
 
