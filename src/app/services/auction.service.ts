@@ -11,7 +11,7 @@ import { PaginationResponse } from '../interfaces/response/paginationResponse';
 })
 export class AuctionService {
 
-  apiUrl: string = environment.API_URL + '/auctions';
+  apiUrl: string = environment.API_URLS.AUCTION;
 
 
   constructor(private http: HttpClient) { }

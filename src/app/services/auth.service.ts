@@ -8,8 +8,8 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
 
-  signUpUrl = environment.API_URL + '/users/signUp';
-  logInUrl = environment.API_URL + '/auth/login';
+  signUpUrl = environment.API_URLS.SIGNUP;
+  logInUrl = environment.API_URLS.LOGIN;
 
   constructor(private http: HttpClient) { }
 
