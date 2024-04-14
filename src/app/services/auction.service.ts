@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { AuctionModel } from '../interfaces/model/auctionModel';
 import { environment } from '../../environments/environment';
 import { PaginationResponse } from '../interfaces/response/paginationResponse';
+import { CreateAuction } from '../interfaces/request/createAuction';
+import { toUtc } from '../util/time';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +26,7 @@ export class AuctionService {
         if(!param)
           continue;
         if(param instanceof Date){
+          param = toUtc(param);
           param = param.toISOString();
         }
         httpParams = httpParams.set(key, param);
@@ -33,4 +36,9 @@ export class AuctionService {
     return this.http.get<PaginationResponse<AuctionModel>>(this.apiUrl, options);
     
   }
+
+  scheduleAuction(auction: CreateAuction){
+    return this.http.post(this.apiUrl, auction);
+  }
+
 }

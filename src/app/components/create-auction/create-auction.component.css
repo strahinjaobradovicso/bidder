@@ -1,0 +1,37 @@
+.schedule-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 1rem;
+    max-width: 800px;
+    margin: auto;
+}
+.date-picker {
+    box-shadow: var(--card-shadow);
+    padding: 0.5rem;
+}
+
+.hour-starting-bid {
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    text-align: center;
+}
+
+.hour-picker {
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+@media screen and (max-width: 600px) {
+    .schedule-container {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+}
+
+.slider {
+    height: 200px;
+}
