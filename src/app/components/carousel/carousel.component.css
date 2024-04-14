@@ -1,10 +1,9 @@
 .slide {
-    height: 45vh;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    box-shadow: var(--card-shadow);
 }
 
 .image-container{
@@ -64,23 +63,4 @@ img {
 
 .controls ul li.selected {
     background: transparent;
-}
-
-@media screen and (max-width: 1200px) {
-    .slide {
-        height: 40vh;
-    }
-}
-
-
-@media screen and (max-width: 700px) {
-    .slide {
-        height: 30vh;
-    }
-}
-
-@media screen and (max-width: 500px) {
-    .slide {
-        height: 20vh;
-    }
 }

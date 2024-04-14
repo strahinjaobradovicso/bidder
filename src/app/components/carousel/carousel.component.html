@@ -1,11 +1,11 @@
 <div class="slide">
         <div class="image-container">
-            <img src="{{current()}}" alt="image should be here">
+            <img src={{images()[imageIndex]}} alt="image should be here">
         </div>
 
         <div class="controls">
-            <span (click)="previous()" class="arrow left"><i class="fa fa-arrow-circle-left" aria-hidden="true">L</i></span>
-            <span (click)="next()" class="arrow right"><i class="fa fa-arrow-circle-right" aria-hidden="true">R</i></span>
+            <span (click)="previous()" class="arrow left"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></span>
+            <span (click)="next()" class="arrow right"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></span>
             
             <ul>
                 @for (image of images(); let clickedIndex = $index; track image;) {

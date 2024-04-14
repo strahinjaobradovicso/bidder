@@ -13,10 +13,6 @@ export class CarouselComponent {
   images = input.required<string[]>();
   imageIndex: number = 0;
 
-  current() {
-    return this.images()[this.imageIndex];
-  }
-
   previous() {
     if(this.imageIndex === 0){
       this.imageIndex = this.images().length - 1;
