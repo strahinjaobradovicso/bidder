@@ -1,7 +1,7 @@
 .auction-details-container {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 45vh 50vh;
     gap: 20px;
     width: 60%;
     margin: auto;
@@ -33,4 +33,8 @@
     .auction-details-container {
         grid-template-columns: 1fr;
     }
+}
+
+.slider {
+    box-shadow: var(--card-shadow);
 }

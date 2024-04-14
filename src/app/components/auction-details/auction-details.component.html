@@ -1,5 +1,7 @@
 <div class="auction-details-container">
-    <app-carousel [images]="auction.ItemModel.imageUrls"></app-carousel>
+    <div class="slider">
+        <app-carousel [images]="auction.ItemModel.imageUrls"></app-carousel>
+    </div>
     <div class="info">
         <h2>{{auction.ItemModel.title}}</h2>
         <p>{{auction.start.toLocaleString()}}</p>
