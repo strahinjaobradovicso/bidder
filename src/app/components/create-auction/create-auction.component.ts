@@ -44,8 +44,6 @@ export class CreateAuctionComponent implements OnInit {
     if(startingBid > this.item.price){
       return false;
     }
-    if(!this.dateValid())
-      return false;
 
     return true;
   }
