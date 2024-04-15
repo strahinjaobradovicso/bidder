@@ -22,7 +22,7 @@
 .hour-picker {
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    margin-bottom: 1rem;
 }
 
 @media screen and (max-width: 600px) {
@@ -33,5 +33,15 @@
 }
 
 .slider {
-    height: 200px;
+    height: 50%;
+    margin-bottom: 1rem;
+}
+
+p {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: bold;
 }
