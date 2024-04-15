@@ -54,14 +54,14 @@ export class BiddingService {
   }
 
   enterAuctionToClient() {
-    const observable = new Observable<{ res: EventResponse, auctionKey: string, auctionBid: BidToClient }>
+    const observable = new Observable<BidToClient>
     (observer => {
       this.socket?.on('enterAuctionToClient', (res, auctionKey, auctionBid) => {
         if(res.status === EventStatus.Failure){
           observer.error(res.message);
         }
         else{
-          observer.next({ res, auctionKey, auctionBid });
+          observer.next(auctionBid);
         }
       })
     })
@@ -69,14 +69,14 @@ export class BiddingService {
   }
 
   placeBidToClient() {
-    const observable = new Observable<{ res: EventResponse, auctionKey: string, auctionBid: BidToClient }>
+    const observable = new Observable<BidToClient>
     (observer => {
       this.socket?.on('placeBidToClient', (res, auctionKey, auctionBid) => {
         if(res.status === EventStatus.Failure){
           observer.error(res.message);
         }
         else{
-          observer.next({ res, auctionKey, auctionBid });
+          observer.next(auctionBid);
         }
       })
     })
@@ -84,10 +84,10 @@ export class BiddingService {
   }
 
   loweredAskBid() {
-    const observable = new Observable<{ auctionKey: string, askValue: number}>
+    const observable = new Observable<BidToClient>
     (observer => {
-      this.socket?.on('loweredAskBid', (auctionKey, askValue) => {
-        observer.next({ auctionKey, askValue });
+      this.socket?.on('loweredAskBid', (key, auctionBid) => {
+        observer.next(auctionBid);
       })
     })
     return observable;

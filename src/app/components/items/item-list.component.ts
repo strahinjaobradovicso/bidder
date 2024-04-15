@@ -5,21 +5,24 @@ import { ItemQuery } from '../../interfaces/query/itemQuery';
 import { PaginationResponse } from '../../interfaces/response/paginationResponse';
 import { ItemComponent } from '../item/item.component';
 import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-item-list',
   standalone: true,
-  imports: [ItemComponent],
+  imports: [ItemComponent, CommonModule],
   templateUrl: './item-list.component.html',
   styleUrl: './item-list.component.css'
 })
 export class ItemListComponent implements OnInit {
 
-  items: ItemModel[] = [];
+  items$!: Observable<ItemModel[]>;
 
   page = 1;
   itemsPerPage = 12;
-  totalRecords = 0;
+  totalRecords!: number;
 
   constructor(private itemService: ItemService){}
 
@@ -28,16 +31,18 @@ export class ItemListComponent implements OnInit {
       page: this.page,
       itemsPerPage: this.itemsPerPage
     }
-    this.itemService.getUsersItems(query).subscribe((res: PaginationResponse<ItemModel>) => {
-      this.items = res.rows;
-      this.totalRecords = res.count;
-      for (const item of this.items) {
-        item.imageUrls = [];
-        for (const imageModel of item.ImageModels) {
-          item.imageUrls.push(environment.API_URL + '/' + imageModel.imageData);
-        }
-      }
-    })
+    this.items$ = this.itemService.getUsersItems(query).pipe(
+      map((res: PaginationResponse<ItemModel>) => {
+        let items: ItemModel[] = res.rows;
+        this.totalRecords = res.count;
+        return items.map(item => {
+          item.imageUrls = [];
+          for (const image of item.ImageModels) {
+            item.imageUrls.push(`${environment.API_URL}/${image.imageData}`)
+          }
+          return item;
+        })
+      })
+    )
   }
-
 }

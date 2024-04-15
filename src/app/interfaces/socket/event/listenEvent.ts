@@ -6,6 +6,6 @@ export type ListenEvents = AddSuffix<{
     enterAuction: (res: EventResponse, auctionKey: string, auctionBid: BidToClient) => void;
     placeBid: (res: EventResponse, auctionKey: string, newAskBid: BidToClient) => void;
 }, 'ToClient'> & {
-    loweredAskBid: (auctionKey: string, askValue: number ) => void;
+    loweredAskBid: (auctionKey: string, auctionBid: BidToClient) => void;
     auctionResult: (auctionKey: string, auctionBid: BidToClient) => void;
 }

@@ -1,6 +1,6 @@
 <div class="bidding-page">
 
-@if (auctionBid && item) {
+@if (auctionBid$ | async; as auctionBid) {
     <div class="bidding-container">
 
         <div class="slider-container">

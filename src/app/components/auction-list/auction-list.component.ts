@@ -5,23 +5,28 @@ import { AuctionQuery } from '../../interfaces/query/auctionQuery';
 import { toLocal } from '../../util/time';
 import { AuctionComponent } from '../auction/auction.component';
 import { PaginationResponse } from '../../interfaces/response/paginationResponse';
+import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-auction-list',
   standalone: true,
-  imports: [AuctionComponent],
+  imports: [AuctionComponent, CommonModule],
   templateUrl: './auction-list.component.html',
   styleUrl: './auction-list.component.css'
 })
 export class AuctionListComponent implements OnInit {
 
-  auctions: AuctionModel[] = [];
+  auctions$!: Observable<AuctionModel[]>;
 
   page: number = 1;
   itemsPerPage: number = 12;
 
   ownerId = input<number>();
   winnerId = input<number>();
+
+  totalRecords?: number;
 
   constructor(private auctionService: AuctionService){}
 
@@ -33,14 +38,16 @@ export class AuctionListComponent implements OnInit {
       auctionWinner: this.winnerId()
     }
 
-    this.auctionService.getAuctions(query).subscribe((res: PaginationResponse<AuctionModel>) => {
-      for (const auction of res.rows) {
-        auction.start = toLocal(auction.start.toString());
-      }
-      this.auctions = res.rows;
-      console.log(this.auctions);
-    })
-
+    this.auctions$ = this.auctionService.getAuctions(query).pipe(
+      map((res:PaginationResponse<AuctionModel>) => {
+        this.totalRecords = res.count;
+        let auctions: AuctionModel[] = res.rows;
+        return auctions.map(auction => {
+          auction.start = toLocal(auction.start.toString());
+          return auction;
+        }); 
+      }),
+    )
   }
 
 }

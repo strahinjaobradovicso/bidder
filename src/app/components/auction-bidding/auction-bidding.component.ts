@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BiddingService } from '../../services/bidding.service';
 import { environment } from '../../../environments/environment';
@@ -6,21 +6,29 @@ import { AuctionStatus } from '../../interfaces/model/auctionModel';
 import { ItemModel } from '../../interfaces/model/itemModel';
 import { CarouselComponent } from '../carousel/carousel.component';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Observable, merge, tap, map, Subscription } from 'rxjs';
+import { BidToClient } from '../../interfaces/socket/model/bidModel';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-auction-bidding',
   standalone: true,
-  imports: [CarouselComponent, ReactiveFormsModule],
+  imports: [CarouselComponent, ReactiveFormsModule, CommonModule],
   templateUrl: './auction-bidding.component.html',
   styleUrl: './auction-bidding.component.css'
 })
-export class AuctionBiddingComponent implements OnInit {
+export class AuctionBiddingComponent implements OnInit, OnDestroy {
 
   auctionKey: string | null;
-  auctionBid: any;
+  auctionBid$!: Observable<BidToClient>;
   auctionStart?: Date;
   auctionStatus = AuctionStatus.Started;
-  item?: ItemModel;
+  item!: ItemModel;
+
+
+  askValue!: number;
+
+  subscriptions: Subscription[] = [];
 
   bidForm = this.formBuilder.group({
     amount: 0
@@ -40,61 +48,59 @@ export class AuctionBiddingComponent implements OnInit {
     if(!this.auctionKey || !this.item){
       return;
     }
-    this.biddingService.enterAuctionToServer(this.auctionKey).subscribe({
-      error: (e) => {
-        console.log(e);
-      },
-      complete: () => {
-        console.log('connected');
-      }
-    })
 
-    this.biddingService.enterAuctionToClient().subscribe({
-      next: (v) => {
-        this.auctionBid = v.auctionBid;
-        this.auctionStart = new Date(this.auctionBid.auctionRules.start);
-      },
-      error: (e) => {
-        console.log(e);
-      }
-    })
+    this.subscriptions.push(
+      this.biddingService.enterAuctionToServer(this.auctionKey).subscribe({
+        error: (e) => {
+          console.log(e);
+        },
+        complete: () => {
+          console.log('connected');
+        } 
+      })
+    )
 
-    this.biddingService.placeBidToClient().subscribe({
-      next: (v) => {
-        this.auctionBid.askValue = v.auctionBid.askValue;
-        this.auctionBid.bidder = v.auctionBid.bidder;
-        this.auctionBid.reachedValue = v.auctionBid.reachedValue;
-      },
-      error: (e) => {
-        console.log(e);
-      }
-    })
+    this.auctionBid$ = merge(
+      this.biddingService.enterAuctionToClient(),
+      this.biddingService.placeBidToClient(),
+      this.biddingService.loweredAskBid()
+    ).pipe(
+      map((bid: BidToClient) => {
+        if(bid.auctionRules){
+          this.auctionStart = new Date(bid.auctionRules.start);
+        }
+        this.askValue = bid.askValue;
+        return bid;
+      }),
+    )
 
-    this.biddingService.loweredAskBid().subscribe({
-      next: (v) => {
-        this.auctionBid.askValue = v.askValue;
-      }
-    })
-
-    this.biddingService.auctionResult().subscribe({
-      next: (v) => {
-        console.log(v);
-      }
-    })
+    this.subscriptions.push(
+      this.biddingService.auctionResult().subscribe({
+        next: (v) => {
+          console.log(v);
+        }
+      })
+    )
   }
 
   bid(){
-    this.biddingService.placeBidToServer(this.auctionKey!, this.auctionBid.askValue);
+    this.biddingService.placeBidToServer(this.auctionKey!, this.askValue);
   }
 
   overbid(){
     const input = this.bidForm.value.amount;
-    if(input && input >= this.auctionBid.askValue){
+    if(input && input >= this.askValue){
       this.biddingService.placeBidToServer(this.auctionKey!, input);
       this.bidForm.reset();
     }
     else{
       console.log('input not valid');
+    }
+  }
+
+  ngOnDestroy(): void {
+    for (const subscription of this.subscriptions) {
+      subscription.unsubscribe();
     }
   }
 }
