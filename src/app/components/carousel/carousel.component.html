@@ -1,6 +1,7 @@
 <div class="slide">
+    @if (images().length > 0) {
         <div class="image-container">
-            <img src={{images()[imageIndex]}} alt="image should be here">
+            <img src={{images()[imageIndex].imageData}} alt="image should be here">
         </div>
 
         <div class="controls">
@@ -15,5 +16,7 @@
         
         </div>
 
-      
+    } @else {
+        <p class="no-images">image not provided</p>
+    }
 </div>

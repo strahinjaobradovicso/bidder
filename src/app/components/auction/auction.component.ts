@@ -10,19 +10,11 @@ import { environment } from '../../../environments/environment';
   templateUrl: './auction.component.html',
   styleUrl: './auction.component.css'
 })
-export class AuctionComponent implements OnInit {
+export class AuctionComponent {
 
   auction = input.required<AuctionModel>();
 
   constructor(private router: Router){}
-
-  ngOnInit(): void {
-    this.auction().ItemModel.imageUrls = [];
-    const auctionItem = this.auction().ItemModel;
-    for (const imageModel of auctionItem.ImageModels) {
-      auctionItem.imageUrls.push(environment.API_URL + '/' + imageModel.imageData);
-    }
-  }
 
   openAuctionPage() {
     this.router.navigate(['/auction-details'], { state: this.auction() });

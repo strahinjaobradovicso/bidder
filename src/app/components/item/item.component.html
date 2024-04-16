@@ -1,6 +1,8 @@
 <div class="model-card" (click)="schedulePage()">
     <div class="img-wrapper">
-        <img src={{item().imageUrls[0]}} alt="img should be here">
+        @if(item().ImageModels.length > 0) {
+            <img src={{item().ImageModels[0].imageData}} alt="img should be here">
+        }
     </div>
     <div class="text-wrapper">
         <p>{{item().title}}</p>

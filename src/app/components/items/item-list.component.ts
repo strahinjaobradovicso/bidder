@@ -36,11 +36,10 @@ export class ItemListComponent implements OnInit {
         let items: ItemModel[] = res.rows;
         this.totalRecords = res.count;
         return items.map(item => {
-          item.imageUrls = [];
-          for (const image of item.ImageModels) {
-            item.imageUrls.push(`${environment.API_URL}/${image.imageData}`)
+          for (const imageModel of item.ImageModels) {
+            imageModel.imageData = `${environment.API_URL}/${imageModel.imageData}`; 
           }
-          return item;
+          return item;          
         })
       })
     )

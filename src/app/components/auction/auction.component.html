@@ -1,7 +1,9 @@
 <div class="model-card" (click)="openAuctionPage()">
 
     <div class="img-wrapper">
-        <img src={{auction().ItemModel.imageUrls[0]}} alt="img should be here">
+        @if (auction().ItemModel.ImageModels.length > 0) {
+            <img src={{auction().ItemModel.ImageModels[0].imageData}} alt="img should be here">
+        }
     </div>
 
     <div class="text-wrapper">

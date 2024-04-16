@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, input } from '@angular/core';
+import { ImageModel } from '../../interfaces/model/itemModel';
 
 @Component({
   selector: 'app-carousel',
@@ -10,7 +11,7 @@ import { Component, input } from '@angular/core';
 })
 export class CarouselComponent {
 
-  images = input.required<string[]>();
+  images = input.required<ImageModel[]>();
   imageIndex: number = 0;
 
   previous() {

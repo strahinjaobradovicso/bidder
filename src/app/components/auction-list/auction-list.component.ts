@@ -9,6 +9,7 @@ import { Observable, catchError, of, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { map } from 'rxjs';
 import { ErrorComponent } from '../error/error.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-auction-list',
@@ -44,6 +45,13 @@ export class AuctionListComponent implements OnInit {
       map((res:PaginationResponse<AuctionModel>) => {
         this.totalRecords = res.count;
         let auctions: AuctionModel[] = res.rows;
+
+        for (const auction of auctions) {
+          for (const imageModel of auction.ItemModel.ImageModels) {
+            imageModel.imageData = `${environment.API_URL}/${imageModel.imageData}`; 
+          }
+        }
+
         return auctions.map(auction => {
           auction.start = toLocal(auction.start.toString());
           return auction;
