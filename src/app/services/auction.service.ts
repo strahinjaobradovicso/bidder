@@ -1,7 +1,7 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuctionQuery } from '../interfaces/query/auctionQuery';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { AuctionModel } from '../interfaces/model/auctionModel';
 import { environment } from '../../environments/environment';
 import { PaginationResponse } from '../interfaces/response/paginationResponse';
@@ -33,12 +33,20 @@ export class AuctionService {
       }
     }
     const options = { params: httpParams };
-    return this.http.get<PaginationResponse<AuctionModel>>(this.apiUrl, options);
+    return this.http.get<PaginationResponse<AuctionModel>>(this.apiUrl, options).pipe(
+      catchError((err: HttpErrorResponse) => {
+        throw new Error('Failed to load data');
+      })
+    )
     
   }
 
   scheduleAuction(auction: CreateAuction){
-    return this.http.post(this.apiUrl, auction);
+    return this.http.post(this.apiUrl, auction).pipe(
+      catchError((err: HttpErrorResponse) => {
+        throw new Error('Could not schedule an auction');
+      })
+    )
   }
 
 }

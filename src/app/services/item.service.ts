@@ -1,10 +1,11 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { ItemQuery } from '../interfaces/query/itemQuery';
 import { ItemModel } from '../interfaces/model/itemModel';
 import { PaginationResponse } from '../interfaces/response/paginationResponse';
 import { CreateItem } from '../interfaces/request/createItem';
+import { catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,15 @@ export class ItemService {
         }
       }
     }
-    return this.http.post(this.apiUrl, formData);
+    return this.http.post(this.apiUrl, formData).pipe(
+      catchError((err: HttpErrorResponse) => {
+        if(err.status === 400){
+          throw new Error('Could not create item');
+        }
+        else{
+          throw new Error('Unknown error');
+        }
+      })
+    )
   }
 }

@@ -5,22 +5,24 @@ import { ProfileComponent } from '../profile/profile.component';
 import { NgStyle } from '@angular/common';
 import { Router } from '@angular/router';
 import { CreateItem } from '../../interfaces/request/createItem';
+import { ErrorComponent } from '../error/error.component';
 
 @Component({
   selector: 'app-add-item',
   standalone: true,
-  imports: [ReactiveFormsModule, ProfileComponent, NgStyle],
+  imports: [ReactiveFormsModule, ProfileComponent, NgStyle, ErrorComponent],
   templateUrl: './add-item.component.html',
   styleUrl: './add-item.component.css'
 })
 export class AddItemComponent {
 
+  error: Error | null = null;
 
   files: File[] = [];
 
   addItemForm = new FormGroup({
     title: new FormControl(null, 
-      [Validators.required]
+      [Validators.required, Validators.minLength(20)]
     ),
     price: new FormControl(null,
       [Validators.required]
@@ -45,7 +47,7 @@ export class AddItemComponent {
 
       this.itemService.create(item).subscribe({
         error: (e) => {
-          console.log(e);
+          this.error = e;
         },
         next: (v) => {
           this.router.navigate(['/profile/store'])

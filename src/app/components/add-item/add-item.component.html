@@ -2,6 +2,10 @@
 <h1>What are you selling?</h1>
 <p>Item remains private until auction is scheduled</p>
 
+@if (error) {
+    <app-error [error]="error"></app-error>
+}
+
 <div class="input-form">
 
     <form [formGroup]="addItemForm" (ngSubmit)="onSubmit()">

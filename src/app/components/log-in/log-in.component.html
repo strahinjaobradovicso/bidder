@@ -1,2 +1,5 @@
 <h1>Login</h1>
+@if (error) {
+    <app-error [error]="error"></app-error>
+}
 <app-auth [action]="action" (formSubmit)="login($event)"></app-auth>

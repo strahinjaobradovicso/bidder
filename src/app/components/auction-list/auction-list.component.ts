@@ -5,20 +5,22 @@ import { AuctionQuery } from '../../interfaces/query/auctionQuery';
 import { toLocal } from '../../util/time';
 import { AuctionComponent } from '../auction/auction.component';
 import { PaginationResponse } from '../../interfaces/response/paginationResponse';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { map } from 'rxjs';
+import { ErrorComponent } from '../error/error.component';
 
 @Component({
   selector: 'app-auction-list',
   standalone: true,
-  imports: [AuctionComponent, CommonModule],
+  imports: [AuctionComponent, CommonModule, ErrorComponent],
   templateUrl: './auction-list.component.html',
   styleUrl: './auction-list.component.css'
 })
 export class AuctionListComponent implements OnInit {
 
   auctions$!: Observable<AuctionModel[]>;
+  error: Error | null = null;
 
   page: number = 1;
   itemsPerPage: number = 12;
@@ -46,6 +48,14 @@ export class AuctionListComponent implements OnInit {
           auction.start = toLocal(auction.start.toString());
           return auction;
         }); 
+      }),
+      tap({
+        error: (error) => {
+          this.error = error;
+        },
+      }), 
+      catchError(err => {
+        return of([]);
       }),
     )
   }

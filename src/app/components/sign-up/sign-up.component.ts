@@ -3,6 +3,7 @@ import { AuthComponent } from '../auth/auth.component';
 import { AuthModel } from '../../interfaces/model/authModel';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,10 +15,12 @@ import { AuthService } from '../../services/auth.service';
 export class SignUpComponent {
   action = 'signup'
 
+  subscription?: Subscription;
+
   constructor(private router: Router, private authService: AuthService){}
 
   signup(auth: AuthModel){
-    const response = this.authService.signup(auth).subscribe({
+    this.authService.signup(auth).subscribe({
       error: (e) => {
         console.log(e);
       },

@@ -9,11 +9,20 @@ import { NgStyle } from '@angular/common';
 import { DatePickerComponent } from '../date-picker/date-picker.component';
 import { AuctionListComponent } from '../auction-list/auction-list.component';
 import { CarouselComponent } from '../carousel/carousel.component';
+import { ErrorComponent } from '../error/error.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-auction',
   standalone: true,
-  imports: [ReactiveFormsModule, NgStyle, DatePickerComponent, AuctionListComponent, CarouselComponent],
+  imports: [
+    ReactiveFormsModule,
+    NgStyle,
+    DatePickerComponent,
+    AuctionListComponent,
+    CarouselComponent,
+    ErrorComponent
+  ],
   templateUrl: './create-auction.component.html',
   styleUrl: './create-auction.component.css'
 })
@@ -23,6 +32,8 @@ export class CreateAuctionComponent implements OnInit {
   startingBidForm!: FormGroup;
   selectedHour = 12;
   selectedDate = new Date();
+
+  error: Error | null = null;
 
   constructor(private router: Router, private auctionService: AuctionService){
     this.item = this.router.getCurrentNavigation()!.extras.state!['item'] as ItemModel;
@@ -96,7 +107,7 @@ export class CreateAuctionComponent implements OnInit {
     }
     this.auctionService.scheduleAuction(auction).subscribe({
       error: (e) => {
-        console.log(e);
+        this.error = e;
       },
       next: (v) => {
         console.log(v);
