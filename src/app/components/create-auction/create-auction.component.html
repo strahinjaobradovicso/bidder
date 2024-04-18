@@ -23,17 +23,22 @@
             </a>
         </div>
 
-        <form [formGroup] = "startingBidForm" (ngSubmit) = "create()">
-            <div>
-                <label for="startingBid">Starting bid:</label>
-                <input type="number" placeholder='startingBid' formControlName="startingBid">
-            </div>
+        <div class="form-container">
 
-            <div>
-                <button type="submit" class="scheduleBtn" [ngStyle]="{'background-color': !inputValid() ? 'grey': ''}">schedule</button>
-            </div>
+            <form [formGroup] = "startingBidForm" (ngSubmit) = "create()">
+                <div>
+                    <label for="startingBid">Starting bid:</label>
+                    <input type="number" placeholder='startingBid' formControlName="startingBid">
+                </div>
 
-        </form>
+                <div>
+                    <button type="submit" class="scheduleBtn" [ngStyle]="{'background-color': !inputValid() ? 'grey': ''}">schedule</button>
+                </div>
+
+            </form>
+
+        </div>
+
     </div>
 
     <div class="date-picker">

@@ -12,17 +12,16 @@
 
 .hour-starting-bid {
     box-shadow: var(--card-shadow);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 1rem;
+    display: grid;
+    grid-template-rows: 6vh 20vh 16vh 14vh;
+    row-gap: 1rem;
     text-align: center;
+    padding: 1rem;
 }
 
 .hour-picker {
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
 }
 
 @media screen and (max-width: 600px) {
@@ -30,11 +29,6 @@
         grid-template-columns: 1fr;
         width: 100%;
     }
-}
-
-.slider {
-    height: 50%;
-    margin-bottom: 1rem;
 }
 
 p {
