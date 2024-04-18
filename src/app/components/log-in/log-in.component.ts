@@ -27,7 +27,7 @@ export class LogInComponent {
       },
       next: (v:any) => {
         localStorage.setItem(environment.TOKEN_STORAGE_KEY, v.jwt);
-        this.router.navigate(['/']);
+        this.router.navigate(['/profile/store']);
       }
     })
   }
