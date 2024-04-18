@@ -1,0 +1,30 @@
+.page-list {
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+}
+
+.page {
+    width: 1.5rem;
+    line-height: 1.5rem;
+    font-size: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 8%;
+}
+
+.fa {
+    cursor: pointer;
+}
+
+.pagination-container {
+    height: 3rem;
+    margin-top: 3rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    margin: auto;
+    margin-top: 3rem;
+}

@@ -1,0 +1,18 @@
+@if(totalRecords() > 0 && this.totalRecords() > this.recordsPerPage()){
+    <div class="pagination-container">
+        <span><i class="fa fa-chevron-left" (click)="previousPage()"></i></span>
+        
+        <ul class="page-list">
+            @for (pageNum of pageList; track pageNum) {
+                <li>
+                    <div 
+                    [ngStyle]="{'background-color': pageNum === this.page ? 'rgb(5, 86, 152)':'', 
+                    'color': pageNum === this.page ? 'white':'black'}" class="page"
+                    (click)="setPage(pageNum)">{{pageNum}}</div>
+                </li>
+            }
+        </ul>
+
+        <span><i class="fa fa-chevron-right" (click)="nextPage()"></i></span>
+    </div>
+}
