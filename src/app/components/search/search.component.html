@@ -1,0 +1,15 @@
+<form [formGroup]="searchForm" (ngSubmit)="onTermSubmit()">
+    <div class="search-container">
+        <div>
+            <input placeholder="search" type="text" formControlName="term">
+            @if (this.activeTerm) {
+                <div>
+                    <a class="term-container" (click)="onTermClear()">
+                        <span><i class="fa fa-times" aria-hidden="true">{{activeTerm}}</i></span>
+                    </a>
+                </div>
+            }
+        </div>
+        <button type="submit">Search</button>
+    </div>
+</form>

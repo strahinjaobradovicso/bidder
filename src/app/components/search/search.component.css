@@ -1,0 +1,16 @@
+.search-container {
+    max-width: 500px;
+    margin-bottom: 3rem;
+}
+
+.term-container {
+    background-color: grey;
+    padding: 0.5rem;
+    border-radius: 5%;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
