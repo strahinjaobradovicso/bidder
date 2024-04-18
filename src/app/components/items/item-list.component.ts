@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, input, output } from '@angular/core';
 import { ItemModel } from '../../interfaces/model/itemModel';
 import { ItemService } from '../../services/item.service';
 import { ItemQuery } from '../../interfaces/query/itemQuery';
 import { PaginationResponse } from '../../interfaces/response/paginationResponse';
 import { ItemComponent } from '../item/item.component';
 import { environment } from '../../../environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, Subject, switchMap } from 'rxjs';
 import { map } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-item-list',
@@ -18,30 +19,29 @@ import { CommonModule } from '@angular/common';
 })
 export class ItemListComponent implements OnInit {
 
+  querySubject = input.required<Subject<ItemQuery>>();
   items$!: Observable<ItemModel[]>;
+  totalRecords = output<number>();
 
-  page = 1;
-  itemsPerPage = 12;
-  totalRecords!: number;
-
-  constructor(private itemService: ItemService){}
+  constructor(private itemService: ItemService, private route: ActivatedRoute){}
 
   ngOnInit(): void {
-    const query: ItemQuery = {
-      page: this.page,
-      itemsPerPage: this.itemsPerPage
-    }
-    this.items$ = this.itemService.getUsersItems(query).pipe(
-      map((res: PaginationResponse<ItemModel>) => {
-        let items: ItemModel[] = res.rows;
-        this.totalRecords = res.count;
-        return items.map(item => {
-          for (const imageModel of item.ImageModels) {
-            imageModel.imageData = `${environment.API_URL}/${imageModel.imageData}`; 
-          }
-          return item;          
-        })
-      })
-    )
+
+    this.items$ = this.querySubject().pipe(
+      switchMap((query: ItemQuery) => {
+        return this.itemService.getUsersItems(query).pipe(
+          map((res: PaginationResponse<ItemModel>) => {
+            this.totalRecords.emit(res.count);
+            let items: ItemModel[] = res.rows;
+            return items.map(item => {
+              for (const imageModel of item.ImageModels) {
+                imageModel.imageData = `${environment.API_URL}/${imageModel.imageData}`; 
+              }
+              return item;          
+            })
+          })
+        )
+    })
+  )
   }
 }
