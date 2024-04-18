@@ -24,4 +24,20 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
+
+  itemStore(){
+    this.router.navigate(['/profile/store']);
+  }
+
+  scheduledAuctions(){
+    if(this.token){
+      this.router.navigate(['/profile/scheduled'])
+    }
+  }
+
+  wonAuctions(){
+    if(this.token){
+      this.router.navigate(['/profile/won'])  
+    }
+  }
 }

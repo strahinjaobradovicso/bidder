@@ -1,6 +1,7 @@
 .profile-navi {
     display: flex;
     gap: 1rem;
+    margin-bottom: 2rem;
 }
 
 .profile-navi div {

@@ -1,5 +1,5 @@
 @if (token) {
     <h1>Won auctions</h1>
     <app-profile></app-profile>
-    <app-auction-list [winnerId]="this.token.userId"></app-auction-list>
+    <app-auction-query [winnerId]="token.userId"></app-auction-query>
 }
