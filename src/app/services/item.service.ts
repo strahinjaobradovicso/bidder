@@ -27,7 +27,11 @@ export class ItemService {
       }
     }
     const options = { params: httpParams };
-    return this.http.get<PaginationResponse<ItemModel>>(this.apiUrl, options);
+    return this.http.get<PaginationResponse<ItemModel>>(this.apiUrl, options).pipe(
+      catchError((err: HttpErrorResponse) => {
+        throw new Error('Could not load data');
+      })
+    )
   }
 
   create(item: CreateItem){

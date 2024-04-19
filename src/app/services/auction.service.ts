@@ -35,7 +35,7 @@ export class AuctionService {
     const options = { params: httpParams };
     return this.http.get<PaginationResponse<AuctionModel>>(this.apiUrl, options).pipe(
       catchError((err: HttpErrorResponse) => {
-        throw new Error('Failed to load data');
+        throw new Error('Could not load data');
       })
     )
     
