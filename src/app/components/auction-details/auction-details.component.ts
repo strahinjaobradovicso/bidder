@@ -20,7 +20,7 @@ export class AuctionDetailsComponent {
   upcoming = AuctionStatus.Upcoming;
 
   constructor(private router: Router){
-    this.auction = this.router.getCurrentNavigation()!.extras.state as AuctionModel;
+    this.auction = this.router.getCurrentNavigation()?.extras.state?.[environment.AUCTION_KEY_STATE];
   }
 
   onCountDownFinished(){

@@ -17,6 +17,10 @@ export class AuctionComponent {
   constructor(private router: Router){}
 
   openAuctionPage() {
-    this.router.navigate(['/auction-details'], { state: this.auction() });
+    this.router.navigate(['/auction-details'], { 
+      state: {
+        [environment.AUCTION_KEY_STATE]: this.auction()
+      }
+    });
   }
 }
