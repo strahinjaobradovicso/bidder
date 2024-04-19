@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Socket, io } from 'socket.io-client';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { EventResponse, EventStatus } from '../interfaces/socket/response/eventResponse';
+import { EventStatus } from '../interfaces/socket/response/eventResponse';
 import { BidToClient, BidToServer } from '../interfaces/socket/model/bidModel';
 import { ListenEvents } from '../interfaces/socket/event/listenEvent';
 import { EmitEvents } from '../interfaces/socket/event/emitEvent';
@@ -17,20 +17,13 @@ export class BiddingService {
   headerKey = environment.AUTH_HEADER_KEY;
   tokenKey = environment.TOKEN_STORAGE_KEY;
 
-  constructor() { }
-
-  initSocket(){
-
+  enterAuctionToServer(roomKey: string): Observable<string> {
     const token = localStorage.getItem(this.tokenKey);
     this.socket = io(this.url, {
       extraHeaders: {
         Authorization: `${this.headerKey}: ${token}` 
       }
     })
-  }
-
-  enterAuctionToServer(roomKey: string): Observable<string> {
-    this.initSocket();
     const observable = new Observable<any>
     (observer => {
       this.socket?.on('connect_error', (err) => {
@@ -56,11 +49,15 @@ export class BiddingService {
   enterAuctionToClient() {
     const observable = new Observable<BidToClient>
     (observer => {
-      this.socket?.on('enterAuctionToClient', (res, auctionKey, auctionBid) => {
+      this.socket?.on('enterAuctionToClient', (res, auctionBid) => {
         if(res.status === EventStatus.Failure){
           observer.error(res.message);
         }
         else{
+          if(!auctionBid || !auctionBid.auctionRules){
+            throw new Error('Could not enter auction');
+          }
+          auctionBid.auctionRules.start = new Date(auctionBid.auctionRules.start);
           observer.next(auctionBid);
         }
       })
@@ -71,11 +68,8 @@ export class BiddingService {
   placeBidToClient() {
     const observable = new Observable<BidToClient>
     (observer => {
-      this.socket?.on('placeBidToClient', (res, auctionKey, auctionBid) => {
-        if(res.status === EventStatus.Failure){
-          observer.error(res.message);
-        }
-        else{
+      this.socket?.on('placeBidToClient', (res, auctionBid) => {
+        if(res.status === EventStatus.Success) {
           observer.next(auctionBid);
         }
       })
@@ -86,7 +80,7 @@ export class BiddingService {
   loweredAskBid() {
     const observable = new Observable<BidToClient>
     (observer => {
-      this.socket?.on('loweredAskBid', (key, auctionBid) => {
+      this.socket?.on('loweredAskBid', (auctionBid) => {
         observer.next(auctionBid);
       })
     })
@@ -94,10 +88,10 @@ export class BiddingService {
   }
   
   auctionResult() {
-    const observable = new Observable<{ auctionKey: string, auctionBid: BidToClient }>
+    const observable = new Observable<BidToClient>
     (observer => {
-      this.socket?.on('auctionResult', (auctionKey, auctionBid) => {
-        observer.next({auctionKey, auctionBid});
+      this.socket?.on('auctionResult', (auctionBid) => {
+        observer.next(auctionBid);
       })
     })
     return observable;
