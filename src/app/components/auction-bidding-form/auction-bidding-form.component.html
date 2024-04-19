@@ -1,0 +1,19 @@
+<div class="action-container">
+    <div class="bid-container">
+        <h1>{{ askingBid() }}</h1>
+        <button (click)="onBid()" type="button">Bid</button>
+    </div>
+
+    <div class="overbid-container">
+        <form [formGroup]="overbidForm" (ngSubmit)="onOverBid()">
+            <div class="input-container">
+                <label for="amount"></label>
+                <input placeholder="0" type="number" formControlName="overbid">
+            </div>
+            <button type="submit">Overbid</button>
+        </form>
+    </div>
+
+    <button (click)="invalidBid()" type="button">InvalidBid</button>
+
+</div>

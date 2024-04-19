@@ -3,32 +3,25 @@
 @if (auctionBid$ | async; as auctionBid) {
     <div class="bidding-container">
 
+        @if(item){
         <div class="slider-container">
             <app-carousel [images]="item.ImageModels"></app-carousel>
         </div>
-        
-        <div class="action-container">
-            <div class="bid-container">
-                <h1>{{ auctionBid.askValue }}</h1>
-                <button (click)="bid()" type="button">Bid</button>
-            </div>
+        }
 
-
-            <div class="overbid-container">
-                <form [formGroup]="bidForm" (ngSubmit)="overbid()">
-                    <div class="input-container">
-                        <label for="amount"></label>
-                        <input placeholder="0" type="number" formControlName="amount">
-                    </div>
-                    <button type="submit">Overbid</button>
-                </form>
-            </div>
-           
-        </div>
+        @if (!auctionBid.isFinal) {
+            <app-auction-bidding-form [askingBid]="auctionBid.askValue" (bid)="bid($event)"></app-auction-bidding-form>
+        } @else(){
+            <h1>Auction is over</h1>
+            @if (auctionBid.bidder) {
+                <h2>Highest offer: {{auctionBid.reachedValue}} by {{auctionBid.bidder.username}}</h2>
+                <p>The seller can reject or accept</p>
+            }
+        }
 
     </div>
-} @else {
-    <p>Auction is not found</p>
+} @else if (error) {
+    <app-error [error]="error"></app-error>
 }
 
 </div>
