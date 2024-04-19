@@ -26,10 +26,10 @@ import { Subscription } from 'rxjs';
   templateUrl: './create-auction.component.html',
   styleUrl: './create-auction.component.css'
 })
-export class CreateAuctionComponent implements OnInit {
+export class CreateAuctionComponent {
 
   item: ItemModel;
-  startingBidForm!: FormGroup;
+  startingBidForm: FormGroup;
   selectedHour = 12;
   selectedDate = new Date();
 
@@ -37,9 +37,6 @@ export class CreateAuctionComponent implements OnInit {
 
   constructor(private router: Router, private auctionService: AuctionService){
     this.item = this.router.getCurrentNavigation()!.extras.state!['item'] as ItemModel;
-  }
-
-  ngOnInit(): void {
     this.startingBidForm = new FormGroup({
       startingBid: new FormControl(this.item.price/2,
         Validators.required

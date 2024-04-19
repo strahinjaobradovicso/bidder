@@ -22,7 +22,7 @@ import { ActivatedRoute } from '@angular/router';
 export class AuctionListComponent implements OnInit {
 
   querySubject = input.required<Subject<AuctionQuery>>();
-  auctions$!: Observable<AuctionModel[]>;
+  auctions$: Observable<AuctionModel[]> | undefined;
   error: Error | null = null;
 
   totalRecords = output<number>();
