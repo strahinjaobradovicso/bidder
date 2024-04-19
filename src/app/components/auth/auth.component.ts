@@ -24,7 +24,7 @@ export class AuthComponent {
       Validators.required
     ]),
     email: new FormControl(null, [
-      Validators.required
+      Validators.required, Validators.email
     ])
   });
 
