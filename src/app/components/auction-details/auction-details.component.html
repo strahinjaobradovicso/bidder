@@ -1,8 +1,18 @@
-<div class="auction-details-container">
-    <div class="slider">
-        <app-carousel [images]="auction.ItemModel.ImageModels"></app-carousel>
+<div class="bidder-grid">
+    <div class="left-column">
+        <div class="slider card">
+            <app-carousel [images]="auction.ItemModel.ImageModels"></app-carousel>
+        </div>
+        <div class="description card">
+            <h2>Description</h2>
+            <p>{{auction.ItemModel.description}}</p>
+        </div>
     </div>
-    <div class="info">
+
+    <div class="right-column">
+        <div class="info card">
+
+
         <h2>{{auction.ItemModel.title}}</h2>
         <p>{{auction.start.toLocaleString()}}</p>
         @if (auction.status === upcoming) {
@@ -18,7 +28,7 @@
             <p>Last bid: {{ auction.lastBid }}</p>
         }
     </div>
-    <div class="description">
-        <p>{{auction.ItemModel.description}}</p>
+
     </div>
+
 </div>

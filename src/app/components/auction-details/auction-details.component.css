@@ -1,25 +1,17 @@
-.auction-details-container {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: 45vh 50vh;
-    gap: 20px;
-    width: 60%;
-    margin: auto;
+.left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .info {
-    box-shadow: var(--card-shadow);
     padding: 1rem;
-}
-
-.info p {
-    font-size: 18px;
-    color: grey;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .description {
-    margin-top: 20px;
-    box-shadow: var(--card-shadow);
     padding: 1rem;
 }
 
@@ -29,12 +21,6 @@
     width: 100%;
 }
 
-@media screen and (max-width: 1000px) {
-    .auction-details-container {
-        grid-template-columns: 1fr;
-    }
-}
-
 .slider {
-    box-shadow: var(--card-shadow);
+    padding: 1rem;
 }

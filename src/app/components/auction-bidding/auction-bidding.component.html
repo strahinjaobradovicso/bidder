@@ -1,27 +1,36 @@
-<div class="bidding-page">
-
 @if (auctionBid$ | async; as auctionBid) {
-    <div class="bidding-container">
-
+    <div class="bidder-grid">
         @if(item){
-        <div class="slider-container">
+        <div class="left-container card">
+            <div class="countdown-container">
+                <h2>Countdown</h2>
+            </div>
             <app-carousel [images]="item.ImageModels"></app-carousel>
         </div>
         }
 
-        @if (!auctionBid.isFinal) {
-            <app-auction-bidding-form [askingBid]="auctionBid.askValue" (bid)="bid($event)"></app-auction-bidding-form>
-        } @else(){
-            <h1>Auction is over</h1>
-            @if (auctionBid.bidder) {
-                <h2>Highest offer: {{auctionBid.reachedValue}} by {{auctionBid.bidder.username}}</h2>
-                <p>The seller can reject or accept</p>
+        <div class="right-container">
+            <div class="bidder-info card">
+            @if (!auctionBid.isFinal) {
+                <div>
+                @if (auctionBid.bidder) {
+                    <h2>Bidder: {{ auctionBid.bidder.username }}</h2>
+                } @else(){
+                    <h2>No bids yet</h2>
+                }
+                </div>
+                <hr>
+                <app-auction-bidding-form [askingBid]="auctionBid.askValue" (bid)="bid($event)"></app-auction-bidding-form>
+            } @else(){
+                <h2>Auction is over</h2>
+                @if (auctionBid.bidder) {
+                    <h2>Highest offer: {{auctionBid.reachedValue}} by {{auctionBid.bidder.username}}</h2>
+                    <p>The seller can reject or accept</p>
+                }
             }
-        }
-
+            </div>
+        </div>
     </div>
 } @else if (error) {
     <app-error [error]="error"></app-error>
 }
-
-</div>

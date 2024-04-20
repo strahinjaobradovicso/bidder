@@ -1,47 +1,10 @@
-.bidding-container {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 2rem;
-    max-width: 1000px;
+.countdown-container{
+    border: black dashed;
 }
-
-.bidding-page {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.action-container {
-    padding: 2rem;
-    text-align: center;
+.bidder-info {
+    padding: 1rem;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    box-shadow: var(--card-shadow);
-}
-
-.input-container {
-    margin-bottom: 1rem;
-}
-
-button {
-    width: 100%;
-    border-radius: 4%;
-}
-
-@media screen and (max-width: 1000px) {
-    .bidding-container {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-}
-
-@media screen and (max-width: 500px) {
-    .bidding-page {
-        display: block;
-    }
-}
-.slider-container{
-    box-shadow: var(--card-shadow);
+    gap: 1rem;
+    container-type: inline-size;
 }

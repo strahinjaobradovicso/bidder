@@ -2,12 +2,11 @@
     <app-error [error]="error"></app-error>
 }
 
-<div class="schedule-container">
-    <div class="hour-starting-bid">
-        <div>
-            <p>{{item.title}} is very nice item to buy for very nice price</p>
-        </div>
-        <div class="slider">
+<div class="bidder-grid">
+
+    <div class="hour-starting-bid card">
+      
+        <div class="slider card">
             <app-carousel [images]="item.ImageModels"></app-carousel>
         </div>
 
@@ -41,8 +40,17 @@
 
     </div>
 
-    <div class="date-picker">
-        <app-date-picker (dateSelected)="setDate($event)"></app-date-picker>
+    <div>
+
+        <div class="date-picker card">
+            <h2>{{item.title}} is very nice item to buy for very nice price</h2>
+            <hr>
+
+            <app-date-picker (dateSelected)="setDate($event)"></app-date-picker>
+        </div>
+
     </div>
+
+   
 
 </div>

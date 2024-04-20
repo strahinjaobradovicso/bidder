@@ -9,3 +9,8 @@
 .count-down-container div {
     text-align: center;
 }
+@media screen and (max-width: 360px) {
+    .count-down-container {
+        flex-direction: column;
+    }
+}

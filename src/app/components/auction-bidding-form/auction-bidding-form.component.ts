@@ -35,9 +35,4 @@ export class AuctionBiddingFormComponent implements OnChanges {
   onBid(){
     this.bid.emit(this.askingBid());
   }
-
-  invalidBid(){
-    this.bid.emit(this.askingBid()-1);
-  }
-
 }
