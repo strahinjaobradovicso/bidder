@@ -20,9 +20,7 @@ export class AuthService {
         if(err.status === 409){
           throw new Error('Name or email are in use');
         }
-        else{
-          throw new Error('Unknown error');
-        }
+        throw new Error('Unknown error');
       })
     )
   }
