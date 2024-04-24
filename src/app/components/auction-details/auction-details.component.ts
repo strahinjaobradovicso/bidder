@@ -29,11 +29,8 @@ export class AuctionDetailsComponent {
 
   enterAuction(){
     this.router.navigate(['auction-bidding'], {
-      queryParams: {
-        [environment.AUCTION_KEY_PARAM]: this.auction.id,
-      },
       state: {
-        [environment.ITEM_KEY_STATE]: this.auction.ItemModel
+        [environment.AUCTION_KEY_STATE]: this.auction,
       }
     }
     )
