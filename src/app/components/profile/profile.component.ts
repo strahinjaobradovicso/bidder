@@ -1,19 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenResponsePayload, getDecoded } from '../../util/token';
 import { Router } from '@angular/router';
+import { ProfileViews } from '../../interfaces/render/profileRender';
+import { AuctionQueryComponent } from '../auction-query/auction-query.component';
+import { StoreComponent } from '../store/store.component';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [],
+  imports: [AuctionQueryComponent, StoreComponent, NgStyle],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit {
 
   token?: TokenResponsePayload;
+  store = ProfileViews.Store;
+  schedules = ProfileViews.Schedules;
+  wins = ProfileViews.Wins;
 
-  constructor(private router: Router){}
+  view: ProfileViews = ProfileViews.Store;
+
+  constructor(private router: Router){ }
   
   ngOnInit(): void {
     this.token = getDecoded();
@@ -24,20 +33,8 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-
-  itemStore(){
-    this.router.navigate(['/profile/store']);
+  setView(view: ProfileViews){
+    this.view = view;
   }
 
-  scheduledAuctions(){
-    if(this.token){
-      this.router.navigate(['/profile/scheduled'])
-    }
-  }
-
-  wonAuctions(){
-    if(this.token){
-      this.router.navigate(['/profile/won'])  
-    }
-  }
 }

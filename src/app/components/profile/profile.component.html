@@ -1,34 +1,28 @@
 @if (this.token) {
-    <div class="profile-navi">
-        <div>
-            <a href="">
-                <span><i class="" aria-hidden="true"></i></span>
-                <p>{{ this.token.username }}</p>
-            </a>
+    <div class="profile-switch">
+        <div (click)="setView(store)" [ngStyle]="{'border-bottom': view === store ? 'solid var(--theme-color)': ''}">
+            Store
         </div>
-        <div>
-            <a (click)="logOut()">
-                <span><i class="" aria-hidden="true"></i></span>
-                <p>Log Out</p>
-            </a>
+
+        <div (click)="setView(schedules)" [ngStyle]="{'border-bottom': view === schedules ? 'solid var(--theme-color)': ''}">
+            Schedules
         </div>
-        <div>
-            <a (click)="itemStore()">
-                <span><i class="" aria-hidden="true"></i></span>
-                <p>Stored Items</p>
-            </a>
+
+        <div (click)="setView(wins)" [ngStyle]="{'border-bottom': view === wins ? 'solid var(--theme-color)': ''}">
+            Wins
         </div>
-        <div>
-            <a (click)="scheduledAuctions()">
-                <span><i class="" aria-hidden="true"></i></span>
-                <p>Scheduled</p>
-            </a>
-        </div>
-        <div>
-            <a (click)="wonAuctions()">
-                <span><i class="" aria-hidden="true"></i></span>
-                <p>Won Auctions</p>
-            </a>
-        </div>
+
     </div>
+    
+    @switch (view) {
+        @case (store) {
+            <app-store></app-store>
+        }
+        @case (schedules) {
+            <app-auction-query [ownerId]="token.userId"></app-auction-query>
+        }
+        @case (wins) {
+            <app-auction-query [winnerId]="token.userId"></app-auction-query>
+        }
+    }
 }

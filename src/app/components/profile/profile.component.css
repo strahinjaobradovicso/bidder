@@ -1,38 +1,10 @@
-.profile-navi {
+.profile-switch {
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
-}
-
-.profile-navi div {
-    display: flex;
-    padding: 0 10px;
+    /* border: black dashed; */
     justify-content: center;
-    align-items: center;
-    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
 }
-.profile-navi {
+.profile-switch div {
     cursor: pointer;
-}
-
-a {
-    text-decoration: none;
-    color: black;
-}
-
-.profile-navi div:hover {
-    background-color: var(--theme-color);
-    color: whitesmoke;
-}
-
-.profile-navi div:hover a {
-    color: whitesmoke;
-}
-
-@media screen and (max-width: 560px) {
-    .profile-navi {
-        flex-direction: column;
-        max-width: 15rem;
-        margin: auto;
-    }
 }

@@ -16,7 +16,7 @@ export class ItemComponent {
   constructor(private router: Router){}
 
   schedulePage(){
-    this.router.navigate(['/profile/auctions/create'], {
+    this.router.navigate(['/profile/schedule'], {
       state: {
         item: this.item()
       }
