@@ -108,3 +108,12 @@ a {
 h2 {
     font-size: clamp(16px, 3cqi, 20px);
 }
+
+@media screen and (max-width: 400px) {
+    .input-form {
+        box-shadow: none;
+    }
+    .input-form button {
+        width: 100%;
+    }
+}
