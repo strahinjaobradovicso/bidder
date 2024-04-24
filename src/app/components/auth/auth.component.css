@@ -1,7 +1,9 @@
 .auth-navi {
     display: flex;
     gap: 1rem;
+    margin-bottom: 1rem;
 }
 button {
     border-radius: 8px;
+    width: 100%;
 }
