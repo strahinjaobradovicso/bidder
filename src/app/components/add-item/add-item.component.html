@@ -1,29 +1,33 @@
 <app-profile></app-profile>
-<h1>What are you selling?</h1>
-<p>Item remains private until auction is scheduled</p>
 
-@if (error) {
-    <app-error [error]="error"></app-error>
-}
+<div class="add-item-container">
 
-<div class="input-form">
+    <h2>What are you selling?</h2>
 
-    <form [formGroup]="addItemForm" (ngSubmit)="onSubmit()">
-        <div class="inputs">
-            <p>Title</p>
-            <input placeholder="title" type="text" formControlName="title">
+    @if (error) {
+        <app-error [error]="error"></app-error>
+    }
 
-            <p>Price</p>
-            <input placeholder="0" type="number" formControlName="price">
+    <div class="input-form">
 
-            <p>Description</p>
-            <textarea placeholder="description" type="text" formControlName="description"></textarea>
+        <form [formGroup]="addItemForm" (ngSubmit)="onSubmit()">
+            <div class="inputs">
+                <p>Title</p>
+                <input placeholder="title" type="text" formControlName="title">
 
-            <p>Images</p>
-            <input placeholder="images" type="file" (change)="this.onFileChange($event)">
-        </div>
+                <p>Price</p>
+                <input placeholder="0" type="number" formControlName="price">
 
-        <button [ngStyle]="{'background-color': !addItemForm.valid ? 'grey' : '' }" type="submit">Save</button>
-    </form>
+                <p>Description</p>
+                <textarea placeholder="description" type="text" formControlName="description"></textarea>
+
+                <p>Images</p>
+                <input placeholder="images" type="file" (change)="this.onFileChange($event)">
+            </div>
+
+            <button [ngStyle]="{'background-color': !addItemForm.valid ? 'grey' : '' }" type="submit">Save</button>
+        </form>
+
+    </div>
 
 </div>
