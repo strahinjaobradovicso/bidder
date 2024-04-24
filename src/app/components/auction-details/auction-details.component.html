@@ -11,13 +11,21 @@
 
     <div class="right-column">
         <div class="info card">
-
-
         <h2>{{auction.ItemModel.title}}</h2>
         <p>{{auction.start.toLocaleString()}}</p>
         @if (auction.status === upcoming) {
             <hr>
-            <app-start-countdown [start]="auction.start" (countDownFinished)="onCountDownFinished()"></app-start-countdown>
+            <app-start-countdown [start]="auction.start" (countDownFinished)="changeToStarted()"></app-start-countdown>
+            <hr>
+        }
+        @if (auction.status === started) {
+            <hr>
+            <app-end-countdown [start]="auction.start" (countDownFinished)="changeToDone()"></app-end-countdown>
+            <hr>
+        }
+        @if(auction.status === done){
+            <hr>
+            <h2>Finished</h2>
             <hr>
         }
         <p>Starting bid: {{auction.startingBid}}</p>
