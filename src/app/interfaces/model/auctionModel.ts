@@ -7,7 +7,7 @@ export enum AuctionStatus {
 }
 
 export interface AuctionModel {
-    id: string
+    id: number
     start: Date
     lastBid?: number
     status: AuctionStatus

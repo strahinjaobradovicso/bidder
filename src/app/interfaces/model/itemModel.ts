@@ -3,7 +3,7 @@ export interface ImageModel {
 }
 
 export interface ItemModel {
-    id?: string
+    id: number
     title: string
     ImageModels: ImageModel[]
     price: number
