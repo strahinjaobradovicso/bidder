@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { AuctionDetailsComponent } from './components/auction-details/auction-details.component';
-import { AuctionBiddingComponent } from './components/auction-bidding/auction-bidding.component';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { StoreComponent } from './components/store/store.component';
@@ -10,13 +9,14 @@ import { AuctionQueryComponent } from './components/auction-query/auction-query.
 import { ProfileScheduledComponent } from './components/profile-scheduled/profile-scheduled.component';
 import { ProfileWonComponent } from './components/profile-won/profile-won.component';
 import { authGuard } from './auth-guard';
+import { AuctionBidComponent } from './components/auction-bid/auction-bid.component';
 
 export const routes: Routes = [
     { path: '', component: AuctionQueryComponent },
     { path: 'auction-details', component: AuctionDetailsComponent },
     { path: 'log-in', component: LogInComponent },
     { path: 'sign-up', component: SignUpComponent },
-    { path: 'auction-bidding',  component: AuctionBiddingComponent, canActivate: [authGuard] },
+    { path: 'auction-bidding',  component: AuctionBidComponent, canActivate: [authGuard] },
     { path: 'profile/store', component: StoreComponent, canActivate: [authGuard] },
     { path: 'profile/store/add', component: AddItemComponent, canActivate: [authGuard] },
     { path: 'profile/auctions/create', component: CreateAuctionComponent, canActivate: [authGuard] },

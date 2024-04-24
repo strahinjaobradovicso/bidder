@@ -1,0 +1,23 @@
+@if(askingBid) {
+    <div class="bidder-grid">
+        <div class="item-container card">
+            <div class="countdown-container">
+                <app-end-countdown [start]="auction!.start"></app-end-countdown>
+            </div>
+            <app-carousel [images]="item!.ImageModels"></app-carousel>
+        </div>
+        <div class="bid-container card">
+            <h2>Bidder: {{askingBid.bidder?.username}}</h2>
+            @if(askingBid.isFinal) {
+                <h2>Auction Is Over</h2>
+                <h2>Highest Bid: {{askingBid.reachedValue}}</h2>
+            } @else {
+                <app-auction-bidding-form [askingBid]="askingBid.askValue" (bid)="placeBid($event)"></app-auction-bidding-form>
+                <h2>{{bidRejection}}</h2>
+            }
+        </div>
+    </div>
+}
+@if (error) {
+    <app-error [error]="error"></app-error>
+}
