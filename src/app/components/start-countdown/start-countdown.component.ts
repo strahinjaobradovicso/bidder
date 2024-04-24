@@ -1,4 +1,5 @@
-import { Component, OnInit, input, output } from '@angular/core';
+import { Component, OnDestroy, OnInit, input, output } from '@angular/core';
+import { Subscription, interval } from 'rxjs';
 
 @Component({
   selector: 'app-start-countdown',
@@ -7,34 +8,39 @@ import { Component, OnInit, input, output } from '@angular/core';
   templateUrl: './start-countdown.component.html',
   styleUrl: './start-countdown.component.css'
 })
-export class StartCountdownComponent implements OnInit {
+export class StartCountdownComponent implements OnInit, OnDestroy {
 
   start = input.required<Date>();
 
-  countDownFinished = output<undefined>();
+  countDownFinished = output<void>();
 
   days: number = 0;
   hours: number = 0;
   minutes: number = 0;
   seconds: number = 0;
 
+  private readonly subscriptions = new Subscription();
+
   ngOnInit(): void {
     this.setTime();
-    const interval = setInterval(() => {
-      const diff = this.setTime();
-      if(diff <= 0){
-        clearInterval(interval);
-        this.days = 0;
-        this.hours = 0;
-        this.minutes = 0;
-        this.seconds = 0;
-        this.onCountDownFinish();
-      }
-    }, 500);
+    this.subscriptions.add(
+      interval(500).subscribe(() => {
+        const diff = this.setTime();
+        if(diff === 0){
+          this.ngOnDestroy();
+          this.countDownFinished.emit();
+        }
+        else{
+          this.setTime();
+        }
+      })
+    );
   }
 
   setTime(): number {
-    const diff = this.start().getTime() - Date.now();
+    let diff = this.start().getTime() - Date.now();
+    if(diff < 0)
+      diff = 0;
 
     const day = 1000 * 60 * 60 * 24;
     const hour = 1000 * 60 * 60;
@@ -45,14 +51,12 @@ export class StartCountdownComponent implements OnInit {
     this.hours = Math.floor((diff % day) / hour);
     this.minutes = Math.floor((diff % hour) / minutes);
     this.seconds = Math.floor((diff % minutes) / seconds);
-
+    
     return diff;
   }
 
-  onCountDownFinish(){
-    this.countDownFinished.emit(undefined);
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
-
-
 
 }
