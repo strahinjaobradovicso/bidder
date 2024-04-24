@@ -4,7 +4,6 @@ import { AuthModel } from '../../interfaces/model/authModel';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { environment } from '../../../environments/environment';
-import { Subscription } from 'rxjs';
 import { ErrorComponent } from '../error/error.component';
 
 @Component({
