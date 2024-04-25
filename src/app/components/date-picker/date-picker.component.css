@@ -25,3 +25,9 @@
 .calendar-control a {
     cursor: pointer;
 }
+
+@media screen and (max-width: 300px) {
+    .calendar-days {
+        font-size: small;
+    }   
+}  
