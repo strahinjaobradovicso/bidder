@@ -3,7 +3,6 @@ import { AuthComponent } from '../auth/auth.component';
 import { AuthModel } from '../../interfaces/model/authModel';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { environment } from '../../../environments/environment';
 import { ErrorComponent } from '../error/error.component';
 
 @Component({
@@ -25,8 +24,7 @@ export class LogInComponent {
         this.error = err;
       },
       next: (v:any) => {
-        localStorage.setItem(environment.TOKEN_STORAGE_KEY, v.jwt);
-        this.router.navigate(['/profile/store']);
+        this.router.navigate(['/profile']);
       }
     })
   }

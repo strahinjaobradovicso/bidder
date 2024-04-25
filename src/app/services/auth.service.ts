@@ -2,7 +2,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthModel } from '../interfaces/model/authModel';
 import { environment } from '../../environments/environment';
-import { catchError } from 'rxjs';
+import { catchError, tap } from 'rxjs';
+import { jwtDecode } from "jwt-decode";
+import { TokenResponsePayload } from '../interfaces/response/tokenResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +29,11 @@ export class AuthService {
 
   login(auth: AuthModel){
     return this.http.post(this.logInUrl, auth).pipe(
+      tap({
+        next: (v:any) => {
+          localStorage.setItem(environment.TOKEN_STORAGE_KEY, v.jwt);
+        }
+      }),
       catchError((err: HttpErrorResponse) => {
         if(err.status === 409){
           throw new Error('Bad credentials');
@@ -37,4 +44,20 @@ export class AuthService {
       })
     )
   }
+
+  logout(){
+    localStorage.clear();
+  }
+
+  getToken(){
+    const token = localStorage.getItem(environment.TOKEN_STORAGE_KEY);
+    if(!token)
+        return null;
+    const decoded = jwtDecode(token) as TokenResponsePayload;
+    if(decoded.exp && decoded.exp * 1000 <= Date.now()){
+        return null;
+    }
+    return decoded;
+  }
+    
 }

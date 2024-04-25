@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { TokenResponsePayload, getDecoded } from '../../util/token';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileViews } from '../../interfaces/render/profileRender';
 import { AuctionQueryComponent } from '../auction-query/auction-query.component';
 import { StoreComponent } from '../store/store.component';
 import { NgStyle } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
+import { TokenResponsePayload } from '../../interfaces/response/tokenResponse';
 
 @Component({
   selector: 'app-profile',
@@ -13,28 +14,19 @@ import { NgStyle } from '@angular/common';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent {
 
-  token?: TokenResponsePayload;
+  token: TokenResponsePayload | null;
   store = ProfileViews.Store;
   schedules = ProfileViews.Schedules;
   wins = ProfileViews.Wins;
 
   view: ProfileViews = ProfileViews.Store;
 
-  constructor(private router: Router){ }
-  
-  ngOnInit(): void {
-    this.token = getDecoded();
+  constructor(private router: Router, private authService: AuthService){ 
+    this.token = authService.getToken();
   }
-
-  logOut(){
-    localStorage.clear();
-    this.router.navigate(['/']);
-  }
-
   setView(view: ProfileViews){
     this.view = view;
   }
-
 }
