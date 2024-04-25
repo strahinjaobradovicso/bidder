@@ -1,0 +1,17 @@
+<nav class="bidder-nav">
+    <div class="nav-logo"><a [routerLink]="['/']">Bidder</a></div>
+        <a (click)="toggle()" class="toggle-button">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </a>
+    @if (naviToggle) {
+
+        <div class="navbar-links">
+            <ul>
+                <li><a [routerLink]="['/profile']">Profile</a></li>
+            </ul>
+        </div>
+
+    }
+</nav>
