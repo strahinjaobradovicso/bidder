@@ -4,6 +4,7 @@ import { SearchComponent } from '../search/search.component';
 import { AuctionQuery } from '../../interfaces/query/auctionQuery';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { AuctionStatus } from '../../interfaces/model/auctionModel';
 
 @Component({
   selector: 'app-auction-query',
@@ -27,7 +28,6 @@ export class AuctionQueryComponent implements OnInit {
 
   ownerId = input<number>();
   winnerId = input<number>();
-
   querySubject = new BehaviorSubject<AuctionQuery>(this.query);
 
   ngOnInit(): void {
@@ -37,8 +37,8 @@ export class AuctionQueryComponent implements OnInit {
     if(this.winnerId()){
       this.query.auctionWinner = this.winnerId();
     }
-    if(this.ownerId() || this.winnerId()){
-      this.querySubject.next(this.query);
+    if(!this.ownerId() && !this.winnerId()) {
+      this.query.status = AuctionStatus.Upcoming;
     }
   }
 
