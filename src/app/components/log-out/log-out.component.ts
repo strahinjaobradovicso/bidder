@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { TokenResponsePayload } from '../../interfaces/response/tokenResponse';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-log-out',
@@ -13,11 +14,12 @@ export class LogOutComponent {
 
   token: TokenResponsePayload | null;
   
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.token = authService.getToken();  
   }
 
   logout(){
     this.authService.logout();
+    this.router.navigate(['log-in']);
   }
 }
