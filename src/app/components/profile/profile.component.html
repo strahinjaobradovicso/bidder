@@ -1,4 +1,5 @@
 @if (this.token) {
+    <app-log-out></app-log-out>
     <div class="profile-switch">
         <div (click)="setView(store)" [ngStyle]="{'border-bottom': view === store ? 'solid var(--theme-color)': ''}">
             Store

@@ -6,11 +6,12 @@ import { StoreComponent } from '../store/store.component';
 import { NgStyle } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { TokenResponsePayload } from '../../interfaces/response/tokenResponse';
+import { LogOutComponent } from '../log-out/log-out.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [AuctionQueryComponent, StoreComponent, NgStyle],
+  imports: [AuctionQueryComponent, StoreComponent, NgStyle, LogOutComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

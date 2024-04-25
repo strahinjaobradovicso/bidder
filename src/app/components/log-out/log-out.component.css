@@ -1,0 +1,13 @@
+.log-out-container {
+    display: flex;
+    gap: 5px;
+    font-size: 1.2rem;
+    align-items: center;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+
+.log-out-container i {
+    font-size: 1.6rem;
+    color: rgb(155, 7, 7);
+}
