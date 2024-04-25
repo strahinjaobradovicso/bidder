@@ -1,6 +1,6 @@
 export interface CreateItem {
     title: string,
     price: string,
-    description?: string,
+    description: string,
     images: File[]
 }

@@ -6,6 +6,7 @@ import { NgStyle } from '@angular/common';
 import { Router } from '@angular/router';
 import { CreateItem } from '../../interfaces/request/createItem';
 import { ErrorComponent } from '../error/error.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-add-item',
@@ -17,15 +18,19 @@ import { ErrorComponent } from '../error/error.component';
 export class AddItemComponent {
 
   error: Error | null = null;
+  
+  titleMinLength = environment.MODEL_CONSTRAINTS.ITEM_TITLE_MIN_LENGTH;
+  titleMaxLength = environment.MODEL_CONSTRAINTS.ITEM_TITLE_MAX_LENGTH;
 
   files: File[] = [];
 
+
   addItemForm = new FormGroup({
     title: new FormControl(null, 
-      [Validators.required, Validators.minLength(20)]
+      [Validators.required, Validators.minLength(this.titleMinLength), Validators.maxLength(this.titleMaxLength)]
     ),
     price: new FormControl(null,
-      [Validators.required]
+      [Validators.required, Validators.min(0)]
     ),
     description: new FormControl(null)
   });
@@ -33,10 +38,16 @@ export class AddItemComponent {
   constructor(private itemService: ItemService, private router: Router){}
 
   onSubmit(){
+    this.error = null;
     if(this.addItemForm.valid){
-      const title = this.addItemForm.value.title!;
-      const price = this.addItemForm.value.price!;
+      const title = this.addItemForm.value.title;
+      const price = this.addItemForm.value.price;
       const description = this.addItemForm.value.description || '';
+
+      if(!title || price == null){
+        this.error = new Error('required values are missing');
+        return;
+      }
 
       const item: CreateItem = {
         title: title,
@@ -49,8 +60,8 @@ export class AddItemComponent {
         error: (e) => {
           this.error = e;
         },
-        next: (v) => {
-          this.router.navigate(['/profile/store'])
+        complete: () => {
+          this.router.navigate(['/profile'])
         }
       })
     }

@@ -10,7 +10,7 @@ import { DatePickerComponent } from '../date-picker/date-picker.component';
 import { AuctionListComponent } from '../auction-list/auction-list.component';
 import { CarouselComponent } from '../carousel/carousel.component';
 import { ErrorComponent } from '../error/error.component';
-import { Subscription } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-create-auction',
@@ -32,6 +32,7 @@ export class CreateAuctionComponent {
   startingBidForm: FormGroup;
   selectedHour = 12;
   selectedDate = new Date();
+  inAdvanceDays = environment.BIDDING.START_IN_ADVANCE_DAYS;
 
   error: Error | null = null;
 
@@ -39,26 +40,14 @@ export class CreateAuctionComponent {
     this.item = this.router.getCurrentNavigation()!.extras.state!['item'] as ItemModel;
     this.startingBidForm = new FormGroup({
       startingBid: new FormControl(this.item.price/2,
-        Validators.required
+        [Validators.required, Validators.min(0), Validators.max(this.item.price)]
       )
     })
   }
 
-  inputValid(): boolean {
-    if(!this.startingBidForm.valid)
-      return false;
-
-    const startingBid = this.startingBidForm.value.startingBid;
-    if(startingBid > this.item.price){
-      return false;
-    }
-
-    return true;
-  }
-
   dateValid(): boolean {
     let firstValidDate = new Date();
-    firstValidDate.setDate(firstValidDate.getDate() + 1);
+    firstValidDate.setDate(firstValidDate.getDate() + this.inAdvanceDays);
     let start = this.selectedDate;
     start.setHours(this.selectedHour);
     return start >= firstValidDate;
@@ -81,14 +70,12 @@ export class CreateAuctionComponent {
   }
 
   create(){
-
-    if(!this.inputValid()){
-      console.log('starting bid not valid');
+    this.error = null;
+    if(!this.startingBidForm.valid){
       return;
     }
-
     if(!this.dateValid()){
-      console.log('date not valid');
+      this.error = new Error(`the start must be at least ${this.inAdvanceDays} days in advance`);
       return;
     }
     const startingBid = this.startingBidForm.value.startingBid;
@@ -106,8 +93,8 @@ export class CreateAuctionComponent {
       error: (e) => {
         this.error = e;
       },
-      next: (v) => {
-        console.log(v);
+      complete: () => {
+        this.router.navigate(['/profile']);
       }
     })
   }

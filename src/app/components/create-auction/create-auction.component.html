@@ -1,7 +1,3 @@
-@if (error) {
-    <app-error [error]="error"></app-error>
-}
-
 <div class="bidder-grid">
 
     <div class="hour-starting-bid card">
@@ -28,11 +24,21 @@
                 <div>
                     <label for="startingBid">Starting bid:</label>
                     <input type="number" placeholder='startingBid' formControlName="startingBid">
+                    @if (startingBidForm.get('startingBid')?.hasError('min')) {
+                        <small> minimum starting bid is 0</small>
+                    }
+                    @if (startingBidForm.get('startingBid')?.hasError('max')) {
+                        <small> starting bid must not be higher than item's price: {{item.price}}</small>
+                    }
                 </div>
 
                 <div>
-                    <button type="submit" class="scheduleBtn" [ngStyle]="{'background-color': !inputValid() ? 'grey': ''}">schedule</button>
+                    <button type="submit" class="scheduleBtn" [ngStyle]="{'background-color': !startingBidForm.valid ? 'grey': ''}">schedule</button>
                 </div>
+
+                @if (error) {
+                    <app-error [error]="error"></app-error>
+                }
 
             </form>
 

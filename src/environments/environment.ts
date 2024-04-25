@@ -14,7 +14,12 @@ export const environment = {
         BIDDING_NAMESPACE: 'http://localhost:3000/auctions'
     },
     BIDDING: {
-        AUCTION_DURATION_SEC: 60
+        AUCTION_DURATION_SEC: 60,
+        START_IN_ADVANCE_DAYS: 1
+    },
+    MODEL_CONSTRAINTS: {
+        ITEM_TITLE_MIN_LENGTH: 20,
+        ITEM_TITLE_MAX_LENGTH: 70
     }
     
 }

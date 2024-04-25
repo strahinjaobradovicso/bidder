@@ -39,9 +39,6 @@ export class ItemService {
     for (const key in item) {
       if (Object.prototype.hasOwnProperty.call(item, key)) {
         const value = item[key as keyof CreateItem];
-        if(!value){
-          continue;
-        }
         if(Array.isArray(value)){
           for (const file of value) {
             formData.append('file', file);

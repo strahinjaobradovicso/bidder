@@ -2,19 +2,21 @@
 
     <h2>What are you selling?</h2>
 
-    @if (error) {
-        <app-error [error]="error"></app-error>
-    }
-
     <div class="input-form">
 
         <form [formGroup]="addItemForm" (ngSubmit)="onSubmit()">
             <div class="inputs">
                 <p>Title</p>
                 <input placeholder="title" type="text" formControlName="title">
+                @if (addItemForm.get('title')?.hasError('minlength') || addItemForm.get('title')?.hasError('maxlength')) {
+                    <small> title must be between {{titleMinLength}} and {{titleMaxLength}} characters long </small>
+                }
 
                 <p>Price</p>
                 <input placeholder="0" type="number" formControlName="price">
+                @if (addItemForm.get('price')?.hasError('min')) {
+                    <small> minimum price is 0 </small>
+                }
 
                 <p>Description</p>
                 <textarea placeholder="description" type="text" formControlName="description"></textarea>
@@ -24,6 +26,11 @@
             </div>
 
             <button [ngStyle]="{'background-color': !addItemForm.valid ? 'grey' : '' }" type="submit">Save</button>
+
+            @if (error) {
+                <app-error [error]="error"></app-error>
+            }
+
         </form>
 
     </div>
