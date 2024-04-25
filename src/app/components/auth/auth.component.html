@@ -2,8 +2,8 @@
 
     <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
         <div class="auth-navi">
-            <a href="/log-in">login</a>
-            <a href="/sign-up">signup</a>
+            <a [routerLink]="['/log-in']">login</a>
+            <a [routerLink]="['/sign-up']">signup</a>
         </div>
 
         <p>Username</p>

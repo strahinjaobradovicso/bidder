@@ -2,11 +2,12 @@ import { Component, input, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthModel } from '../../interfaces/model/authModel';
 import { NgStyle } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [ReactiveFormsModule, NgStyle],
+  imports: [ReactiveFormsModule, NgStyle, RouterLink],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css'
 })
