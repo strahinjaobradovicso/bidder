@@ -20,13 +20,12 @@ import { ActivatedRoute } from '@angular/router';
 export class ItemListComponent implements OnInit {
 
   querySubject = input.required<Subject<ItemQuery>>();
-  items$!: Observable<ItemModel[]>;
+  items$: Observable<ItemModel[]> | undefined;
   totalRecords = output<number>();
 
   constructor(private itemService: ItemService, private route: ActivatedRoute){}
 
   ngOnInit(): void {
-
     this.items$ = this.querySubject().pipe(
       switchMap((query: ItemQuery) => {
         return this.itemService.getUsersItems(query).pipe(
