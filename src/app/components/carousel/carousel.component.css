@@ -76,4 +76,7 @@ img {
     .slide {
         height: 150px;
     }
+    .controls ul {
+        display: none;
+    }
 }
