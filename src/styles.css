@@ -38,7 +38,7 @@ input, textarea {
 
 .model-list-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 16rem));
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 16rem));
     gap: 2rem;
     justify-content: center;
 }
@@ -95,12 +95,25 @@ a {
 
 .card {
     box-shadow: 0px 0px 3px 0px rgba(128, 127, 127, 0.5);
-
+}
+.card h2, .card p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.card h2 {
+    -webkit-line-clamp: 3;
+}
+.card p {
+    -webkit-line-clamp: 6;
 }
 
 @media screen and (max-width: 760px) {
     .bidder-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+        overflow-wrap: break-word;
         padding: 0;
     }
 }
