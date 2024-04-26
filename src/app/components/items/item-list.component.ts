@@ -5,15 +5,16 @@ import { ItemQuery } from '../../interfaces/query/itemQuery';
 import { PaginationResponse } from '../../interfaces/response/paginationResponse';
 import { ItemComponent } from '../item/item.component';
 import { environment } from '../../../environments/environment';
-import { Observable, Subject, switchMap } from 'rxjs';
+import { Observable, Subject, catchError, of, switchMap } from 'rxjs';
 import { map } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { ErrorComponent } from '../error/error.component';
 
 @Component({
   selector: 'app-item-list',
   standalone: true,
-  imports: [ItemComponent, CommonModule],
+  imports: [ItemComponent, CommonModule, ErrorComponent],
   templateUrl: './item-list.component.html',
   styleUrl: './item-list.component.css'
 })
@@ -22,6 +23,8 @@ export class ItemListComponent implements OnInit {
   querySubject = input.required<Subject<ItemQuery>>();
   items$: Observable<ItemModel[]> | undefined;
   totalRecords = output<number>();
+
+  error: Error | null = null;
 
   constructor(private itemService: ItemService, private route: ActivatedRoute){}
 
@@ -38,6 +41,10 @@ export class ItemListComponent implements OnInit {
               }
               return item;          
             })
+          }),
+          catchError(error => {
+            this.error = error;
+            return of([]);
           })
         )
     })
