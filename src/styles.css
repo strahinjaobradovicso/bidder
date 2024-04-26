@@ -95,6 +95,7 @@ a {
 
 .card {
     box-shadow: 0px 0px 3px 0px rgba(128, 127, 127, 0.5);
+    padding: 1rem;
 }
 .card h2, .card p {
     display: -webkit-box;
