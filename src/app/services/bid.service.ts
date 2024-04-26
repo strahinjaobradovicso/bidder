@@ -21,8 +21,4 @@ export class BidService {
     this.socket.emit('placeBid', bid);
   }
 
-  cleanUp(){
-    this.socket.disconnect();
-  }
-
 }

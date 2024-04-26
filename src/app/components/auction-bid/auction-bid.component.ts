@@ -72,6 +72,5 @@ export class AuctionBidComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-    this.bidService.cleanUp();
   }
 }
