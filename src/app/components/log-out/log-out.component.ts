@@ -15,7 +15,7 @@ export class LogOutComponent {
   token: TokenResponsePayload | null;
   
   constructor(private authService: AuthService, private router: Router) {
-    this.token = authService.getToken();  
+    this.token = authService.getTokenPayload();  
   }
 
   logout(){

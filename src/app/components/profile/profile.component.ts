@@ -25,7 +25,7 @@ export class ProfileComponent {
   view: ProfileViews = ProfileViews.Store;
 
   constructor(private router: Router, private authService: AuthService){ 
-    this.token = authService.getToken();
+    this.token = authService.getTokenPayload();
   }
   setView(view: ProfileViews){
     this.view = view;

@@ -13,6 +13,7 @@ export class AuthService {
 
   signUpUrl = environment.API_URLS.SIGNUP;
   logInUrl = environment.API_URLS.LOGIN;
+  tokenKey = environment.TOKEN_STORAGE_KEY;
 
   constructor(private http: HttpClient) { }
 
@@ -49,14 +50,22 @@ export class AuthService {
     localStorage.clear();
   }
 
-  getToken(){
-    const token = localStorage.getItem(environment.TOKEN_STORAGE_KEY);
+  getToken() {
+    const token = localStorage.getItem(this.tokenKey);
+    if(!token)
+      return null;
+    const decoded = jwtDecode(token);
+    if(decoded.exp && decoded.exp * 1000 <= Date.now()){
+      return null;
+    }
+    return token;
+  }
+
+  getTokenPayload() {
+    const token = this.getToken();
     if(!token)
         return null;
-    const decoded = jwtDecode(token) as TokenResponsePayload;
-    if(decoded.exp && decoded.exp * 1000 <= Date.now()){
-        return null;
-    }
+    const decoded = jwtDecode<TokenResponsePayload>(token);
     return decoded;
   }
     
