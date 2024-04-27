@@ -28,10 +28,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Screenshots
 
-<img src="images/schedule.png" width="400">
-<img src="images/profile.png" width="400">
-<img src="images/startsIn.png" width="400">
-<img src="images/bid.png" width="400">
-<img src="images/mobile1.png" height="400">
-<img src="images/mobile2.png" height="400">
+<img src="images/schedule.png">
+<img src="images/preAuction.png">
+<img src="images/inAuction.png">
+<img src="images/profile.png">
 
