@@ -1,5 +1,6 @@
 # Bidder
 I just wanted to make a simple client for my [real-time bidding-app](https://github.com/strahinjaobradovicso/bidding-app), and the rest is history.
+<img src="images/inAuction.png" width="800">
 
 ## Features
 - responsive design - without exceptions
