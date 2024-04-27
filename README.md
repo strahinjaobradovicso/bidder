@@ -1,5 +1,5 @@
 # Bidder
-I just wanted to make a simple client for my real-time bidding-app, and the rest is history.
+I just wanted to make a simple client for my [real-time bidding-app](https://github.com/strahinjaobradovicso/bidding-app), and the rest is history.
 
 ## Features
 - responsive design - without exceptions
