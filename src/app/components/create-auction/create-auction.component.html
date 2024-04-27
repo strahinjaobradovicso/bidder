@@ -22,8 +22,10 @@
 
             <form [formGroup] = "startingBidForm" (ngSubmit) = "create()">
                 <div>
-                    <label for="startingBid">Starting bid:</label>
-                    <input type="number" placeholder='startingBid' formControlName="startingBid">
+                    <div for="startingBid">Starting bid</div>
+                    <div>
+                    <input type="number" placeholder='starting bid' formControlName="startingBid">
+                    </div>
                     @if (startingBidForm.get('startingBid')?.hasError('min')) {
                         <small> minimum starting bid is 0</small>
                     }

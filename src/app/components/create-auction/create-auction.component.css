@@ -25,3 +25,7 @@ p {
     overflow: hidden;
     font-weight: bold;
 }
+
+input {
+    max-width: 10rem;
+}
