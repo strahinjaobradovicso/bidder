@@ -7,6 +7,7 @@
             <app-carousel [images]="item!.ImageModels"></app-carousel>
         </div>
         <div class="bid-container card">
+            <h2>{{auction?.ItemModel?.title}}</h2>
             <h2>Bidder: {{askingBid.bidder?.username}}</h2>
             @if(askingBid.isFinal) {
                 <h2>Auction Is Over</h2>
