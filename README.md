@@ -1,5 +1,5 @@
 # Bidder
-I just wanted to make a simple client for my [real-time bidding-app](https://github.com/strahinjaobradovicso/bidding-app), and the rest is history.
+This is a client app for my [real-time bidding-app](https://github.com/strahinjaobradovicso/bidding-app).
 <img src="images/inAuction.png" width="800">
 
 ## Features
