@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
-import { AuctionDetailsComponent } from './components/auction-details/auction-details.component';
-import { LogInComponent } from './components/log-in/log-in.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { AddItemComponent } from './components/add-item/add-item.component';
-import { CreateAuctionComponent } from './components/create-auction/create-auction.component';
-import { AuctionQueryComponent } from './components/auction-query/auction-query.component';
-import { authGuard } from './auth-guard';
-import { AuctionBidComponent } from './components/auction-bid/auction-bid.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { LogInComponent } from './auth/components/log-in/log-in.component';
+import { SignUpComponent } from './auth/components/sign-up/sign-up.component';
+import { AddItemComponent } from './item/components/add-item/add-item.component';
+import { AuctionQueryComponent } from './auction/components/auction-query/auction-query.component';
+import { ProfileComponent } from './profile/components/profile/profile.component';
+import { AuctionDetailsComponent } from './auction/components/auction-details/auction-details.component';
+import { CreateAuctionComponent } from './auction/components/create-auction/create-auction.component';
+import { AuctionBidComponent } from './bid/components/auction-bid/auction-bid.component';
+import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
     { path: '', component: AuctionQueryComponent },
