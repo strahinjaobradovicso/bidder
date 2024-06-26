@@ -1,9 +1,9 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, catchError } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
+import { Observable, catchError, map, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AuctionQuery } from '../types/auctionQuery.inteface';
-import { toUtc } from '../../core/util/time';
+import { toLocal, toUtc } from '../../core/util/time';
 import { CreateAuction } from '../types/auctionCreate.interface';
 import { PaginationResponse } from '../../shared/types/paginationResponse.interface';
 import { AuctionModel } from '../types/auctionModel.interface';
@@ -34,11 +34,19 @@ export class AuctionService {
     }
     const options = { params: httpParams };
     return this.http.get<PaginationResponse<AuctionModel>>(this.apiUrl, options).pipe(
+      map((res:PaginationResponse<AuctionModel>) => {
+        for (const auction of res.rows) {
+          for (const imageModel of auction.ItemModel.ImageModels) {
+              imageModel.imageData = `${environment.API_URL}/${imageModel.imageData}`; 
+          }
+          auction.start = toLocal(auction.start.toString());
+        }
+        return res;
+      }),
       catchError((err: HttpErrorResponse) => {
         throw new Error('Could not load data');
       })
     )
-    
   }
 
   scheduleAuction(auction: CreateAuction){

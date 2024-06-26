@@ -1,61 +1,68 @@
-import { Component, OnInit, input, output } from '@angular/core';
-import { toLocal } from '../../../core/util/time';
+import { Component, Signal, computed, effect, input} from '@angular/core';
 import { AuctionComponent } from '../auction/auction.component';
-import { Observable, Subject, catchError, of, switchMap, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { map } from 'rxjs';
 import { ErrorComponent } from '../../../shared/components/error/error.component';
-import { environment } from '../../../../environments/environment';
-import { ActivatedRoute } from '@angular/router';
-import { AuctionQuery } from '../../types/auctionQuery.inteface';
 import { AuctionService } from '../../services/auction.service';
-import { PaginationResponse } from '../../../shared/types/paginationResponse.interface';
-import { AuctionModel } from '../../types/auctionModel.interface';
+import { AuctionQueryService } from '../../services/auction-query.service';
+import { SearchComponent } from '../../../shared/components/search/search.component';
+import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { count, switchMap } from 'rxjs';
+import { AuctionQuery } from '../../types/auctionQuery.inteface';
+import { toSignalWithError } from '../../../core/util/signal';
 
 @Component({
   selector: 'app-auction-list',
   standalone: true,
-  imports: [AuctionComponent, CommonModule, ErrorComponent],
+  imports: [AuctionComponent, CommonModule, ErrorComponent, SearchComponent, PaginationComponent],
   templateUrl: './auction-list.component.html',
-  styleUrl: './auction-list.component.css'
+  styleUrl: './auction-list.component.css',
+  providers: [AuctionQueryService]
 })
-export class AuctionListComponent implements OnInit {
+export class AuctionListComponent {
 
-  querySubject = input.required<Subject<AuctionQuery>>();
-  auctions$: Observable<AuctionModel[]> | undefined;
-  error: Error | null = null;
+  winnerId = input<number>();
+  ownerId = input<number>();
 
-  totalRecords = output<number>();
+  query = computed((): AuctionQuery =>{
+    const querySignal = this.auctionQueryService.querySignal();
+    const winnerId = this.winnerId();
+    const ownerId = this.ownerId();
+    return {
+      ...querySignal,
+      auctionWinner: winnerId,
+      itemOwner: ownerId
+    }
+  })
 
-  constructor(private auctionService: AuctionService, private route: ActivatedRoute){}
 
-  ngOnInit(): void {
-    this.auctions$ = this.querySubject().pipe(
+  auctions = toSignalWithError(
+    toObservable(this.query).pipe(
       switchMap((query: AuctionQuery) => {
-        return this.auctionService.getAuctions(query).pipe(
-          map((res:PaginationResponse<AuctionModel>) => {
-            this.totalRecords.emit(res.count);
-            let auctions: AuctionModel[] = res.rows;
-            for (const auction of auctions) {
-              for (const imageModel of auction.ItemModel.ImageModels) {
-                imageModel.imageData = `${environment.API_URL}/${imageModel.imageData}`; 
-              }
-            }
-            return auctions.map(auction => {
-              auction.start = toLocal(auction.start.toString());
-              return auction;
-            }); 
-          }),
-          tap({
-            error: (error) => {
-              this.error = error;
-            },
-          }), 
-          catchError(err => {
-            return of([]);
-          }),
-        )
+        return this.auctionService.getAuctions(query)
       })
     )
+  )
+
+  totalRecords = computed(()=>{
+    return this.auctions.value()?.count || 0;
+  })
+
+  recordsPerPage = computed(()=>{
+    return this.auctionQueryService.querySignal().itemsPerPage;
+  })
+
+  constructor(private auctionService: AuctionService, private auctionQueryService: AuctionQueryService){
+    console.log(this.auctionQueryService.querySignal());
   }
+
+
+  searchUpdate(itemTitle: string){
+    this.auctionQueryService.setItemTitle(itemTitle);
+  }
+
+  pageUpdate(page: number){
+    this.auctionQueryService.setPage(page);
+  }
+
 }

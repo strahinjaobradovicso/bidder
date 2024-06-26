@@ -20,10 +20,10 @@
             <app-store></app-store>
         }
         @case (schedules) {
-            <app-auction-query [ownerId]="token.userId"></app-auction-query>
+            <app-auction-list [ownerId]="token.userId"></app-auction-list>
         }
         @case (wins) {
-            <app-auction-query [winnerId]="token.userId"></app-auction-query>
+            <app-auction-list [winnerId]="token.userId"></app-auction-list>
         }
     }
 }
