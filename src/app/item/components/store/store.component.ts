@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ItemQueryComponent } from '../item-query/item-query.component';
 import { RouterLink } from '@angular/router';
+import { ItemListComponent } from '../items/item-list.component';
 
 @Component({
   selector: 'app-store',
   standalone: true,
-  imports: [RouterLink, ItemQueryComponent],
+  imports: [RouterLink, ItemListComponent],
   templateUrl: './store.component.html',
   styleUrl: './store.component.css'
 })

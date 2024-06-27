@@ -1,8 +1,10 @@
+<app-search (termChange)="searchUpdate($event)"></app-search>
 <div class="model-list-container">
-    @for (item of items$ | async; track $index) {
+    @for (item of items.value()?.rows; track $index) {
         <app-item [item]="item"></app-item>
     }
 </div>
-@if (error) {
-    <app-error [error]="error"></app-error>
+@if (items.error()) {
+    <app-error [error]="items.error()"></app-error>
 }
+<app-pagination [totalRecords]="totalRecords()" [recordsPerPage]="itemsPerPage()" (pageSelected)="pageUpdate($event)"></app-pagination>

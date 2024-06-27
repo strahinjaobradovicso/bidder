@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError } from 'rxjs';
+import { catchError, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ItemQuery } from '../types/itemQuery.interface';
 import { CreateItem } from '../types/itemCreate.interface';
@@ -28,6 +28,14 @@ export class ItemService {
     }
     const options = { params: httpParams };
     return this.http.get<PaginationResponse<ItemModel>>(this.apiUrl, options).pipe(
+      map((res: PaginationResponse<ItemModel>) => {
+        res.rows.forEach(item => {
+          for (const imageModel of item.ImageModels) {
+            imageModel.imageData = `${environment.API_URL}/${imageModel.imageData}`; 
+          }
+        });
+        return res;
+      }),
       catchError((err: HttpErrorResponse) => {
         throw new Error('Could not load data');
       })
