@@ -13,7 +13,7 @@ import { environment } from '../environments/environment';
 
 export const routes: Routes = [
     { path: '', component: AuctionListComponent },
-    { path: 'auction-details', component: AuctionDetailsComponent },
+    { path: 'auction-details', component: AuctionDetailsComponent, canActivate: [stateGuard(environment.AUCTION_KEY_STATE)] },
     { path: 'log-in', component: LogInComponent },
     { path: 'sign-up', component: SignUpComponent },
     { path: 'auction-bidding',  component: AuctionBidComponent, canActivate: [authGuard, stateGuard(environment.AUCTION_KEY_STATE)] },
