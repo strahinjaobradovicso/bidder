@@ -37,7 +37,7 @@ export class CreateAuctionComponent {
   error: Error | null = null;
 
   constructor(private router: Router, private auctionService: AuctionService){
-    this.item = this.router.getCurrentNavigation()!.extras.state!['item'] as ItemModel;
+    this.item = this.router.getCurrentNavigation()!.extras.state![environment.ITEM_KEY_STATE] as ItemModel;
     this.startingBidForm = new FormGroup({
       startingBid: new FormControl(this.item.price/2,
         [Validators.required, Validators.min(0), Validators.max(this.item.price)]

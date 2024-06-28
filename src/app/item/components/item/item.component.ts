@@ -1,6 +1,7 @@
 import { Component, OnInit, input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ItemModel } from '../../types/itemModel.interface';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-item',
@@ -18,7 +19,7 @@ export class ItemComponent {
   schedulePage(){
     this.router.navigate(['/profile/schedule'], {
       state: {
-        item: this.item()
+        [environment.ITEM_KEY_STATE]: this.item()
       }
     })
   }

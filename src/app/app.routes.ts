@@ -19,5 +19,5 @@ export const routes: Routes = [
     { path: 'auction-bidding',  component: AuctionBidComponent, canActivate: [authGuard, stateGuard(environment.AUCTION_KEY_STATE)] },
     { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
     { path: 'profile/upload', component: AddItemComponent, canActivate: [authGuard] },
-    { path: 'profile/schedule', component: CreateAuctionComponent, canActivate: [authGuard] },
+    { path: 'profile/schedule', component: CreateAuctionComponent, canActivate: [authGuard, stateGuard(environment.ITEM_KEY_STATE)] },
 ];
