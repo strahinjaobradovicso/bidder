@@ -2,12 +2,12 @@
     <div class="bidder-grid">
         <div class="item-container card">
             <div class="countdown-container">
-                <app-end-countdown [start]="auction!.start"></app-end-countdown>
+                <app-end-countdown [start]="auction.start"></app-end-countdown>
             </div>
-            <app-carousel [images]="item!.ImageModels"></app-carousel>
+            <app-carousel [images]="item.ImageModels"></app-carousel>
         </div>
         <div class="bid-container card">
-            <h2>{{auction?.ItemModel?.title}}</h2>
+            <h2>{{auction.ItemModel.title}}</h2>
             <h2>Bidder: {{askingBid.bidder?.username}}</h2>
             @if(askingBid.isFinal) {
                 <h2>Auction Is Over</h2>

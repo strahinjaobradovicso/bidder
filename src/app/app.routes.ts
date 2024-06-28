@@ -8,13 +8,15 @@ import { CreateAuctionComponent } from './auction/components/create-auction/crea
 import { AuctionBidComponent } from './bid/components/auction-bid/auction-bid.component';
 import { authGuard } from './core/guards/auth-guard';
 import { AuctionListComponent } from './auction/components/auction-list/auction-list.component';
+import { stateGuard } from './core/guards/state-guard.guard';
+import { environment } from '../environments/environment';
 
 export const routes: Routes = [
     { path: '', component: AuctionListComponent },
     { path: 'auction-details', component: AuctionDetailsComponent },
     { path: 'log-in', component: LogInComponent },
     { path: 'sign-up', component: SignUpComponent },
-    { path: 'auction-bidding',  component: AuctionBidComponent, canActivate: [authGuard] },
+    { path: 'auction-bidding',  component: AuctionBidComponent, canActivate: [stateGuard(environment.AUCTION_KEY_STATE)] },
     { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
     { path: 'profile/upload', component: AddItemComponent, canActivate: [authGuard] },
     { path: 'profile/schedule', component: CreateAuctionComponent, canActivate: [authGuard] },

@@ -23,8 +23,8 @@ import { ItemModel } from '../../../item/types/itemModel.interface';
 })
 export class AuctionBidComponent implements OnInit, OnDestroy {
 
-  auction: AuctionModel | null;
-  item: ItemModel | undefined;
+  auction: AuctionModel;
+  item: ItemModel;
 
   error: Error | null = null;
   askingBid: BidToClient | undefined;
@@ -32,16 +32,14 @@ export class AuctionBidComponent implements OnInit, OnDestroy {
 
   private readonly subscriptions = new Subscription();
 
+  
   constructor(private router: Router, private bidService: BidService) { 
     this.auction = this.router.getCurrentNavigation()?.extras.state?.[environment.AUCTION_KEY_STATE];
-    this.item = this.auction?.ItemModel;
+    this.item = this.auction.ItemModel;
   }
 
   ngOnInit(): void {
-    if(!this.auction?.id){
-      this.error = new Error('auction info is missing');
-      return;
-    }
+
     this.subscriptions.add(
       this.bidService.bidAccept.subscribe((bid) => {
         this.askingBid = bid;
