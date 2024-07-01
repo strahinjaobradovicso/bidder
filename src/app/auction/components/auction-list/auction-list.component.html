@@ -1,11 +1,8 @@
-<app-search (termChange)="searchUpdate($event)"></app-search>
 <div class="model-list-container">
-    @for(auction of auctions.value()?.rows; track auction.id) {
+    @for(auction of auctions(); track auction.id) {
         <app-auction [auction]="auction"></app-auction>
     }
 </div>
-<app-pagination [recordsPerPage]="recordsPerPage()" [totalRecords]="totalRecords()" (pageSelected)="pageUpdate($event)"></app-pagination>
-
-@if(auctions.error()){
-    <app-error [error]="auctions.error()"></app-error>
+@if(error(); as error){
+    <app-error [error]="error"></app-error>
 }

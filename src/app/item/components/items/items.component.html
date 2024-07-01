@@ -1,0 +1,9 @@
+<app-search (termChange)="store.setQueryTitle($event)"></app-search>
+<app-item-list [items]="store.items().rows" [loading]="store.isLoading()" [error]="store.error()"></app-item-list>
+<app-pagination
+    (pageSelected)="store.setQueryPage($event)"
+    [totalRecords]="store.items().count"
+    [recordsPerPage]="store.query().itemsPerPage"
+    [paginationReset]="store.paginationReset()"
+>
+</app-pagination>

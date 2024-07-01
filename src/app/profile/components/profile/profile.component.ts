@@ -6,12 +6,12 @@ import { ProfileViews } from '../../types/profileViews.enum';
 import { AuthService } from '../../../auth/services/auth.service';
 import { LogOutComponent } from '../../../auth/components/log-out/log-out.component';
 import { TokenResponsePayload } from '../../../auth/types/token.interface';
-import { AuctionListComponent } from '../../../auction/components/auction-list/auction-list.component';
+import { AuctionsComponent } from '../../../auction/components/auctions/auctions.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [AuctionListComponent, StoreComponent, NgStyle, LogOutComponent],
+  imports: [AuctionsComponent, StoreComponent, NgStyle, LogOutComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

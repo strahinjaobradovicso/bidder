@@ -7,12 +7,12 @@ import { AuctionDetailsComponent } from './auction/components/auction-details/au
 import { CreateAuctionComponent } from './auction/components/create-auction/create-auction.component';
 import { AuctionBidComponent } from './bid/components/auction-bid/auction-bid.component';
 import { authGuard } from './core/guards/auth-guard';
-import { AuctionListComponent } from './auction/components/auction-list/auction-list.component';
 import { stateGuard } from './core/guards/state-guard.guard';
 import { environment } from '../environments/environment';
+import { AuctionsComponent } from './auction/components/auctions/auctions.component';
 
 export const routes: Routes = [
-    { path: '', component: AuctionListComponent },
+    { path: '', component: AuctionsComponent },
     { path: 'auction-details', component: AuctionDetailsComponent, canActivate: [stateGuard(environment.AUCTION_KEY_STATE)] },
     { path: 'log-in', component: LogInComponent },
     { path: 'sign-up', component: SignUpComponent },
