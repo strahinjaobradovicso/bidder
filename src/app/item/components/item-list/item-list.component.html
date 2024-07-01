@@ -1,0 +1,8 @@
+<div class="model-list-container">
+    @for (item of items(); track item.id) {
+        <app-item [item]="item"></app-item>
+    }
+</div>
+@if (error(); as error) {
+    <app-error [error]="error"></app-error>
+}

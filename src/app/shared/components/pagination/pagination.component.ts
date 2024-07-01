@@ -1,75 +1,57 @@
 import { NgStyle } from '@angular/common';
-import { Component, OnChanges, SimpleChanges, input, output } from '@angular/core';
+import { Component, OnInit, effect, inject, input, output } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
+import { PaginationStore } from './store/pagination.store';
 
 @Component({
   selector: 'app-pagination',
   standalone: true,
   imports: [NgStyle],
   templateUrl: './pagination.component.html',
-  styleUrl: './pagination.component.css'
+  styleUrl: './pagination.component.css', 
+  providers: [PaginationStore]
 })
-export class PaginationComponent implements OnChanges {
+export class PaginationComponent implements OnInit {
+
+  store = inject(PaginationStore);
 
   pageSelected = output<number>();
+  
   totalRecords = input.required<number>();
   recordsPerPage = input.required<number>();
+  paginationReset = input({index: 1, toLoad: false});
 
-  page: number = 1;
-  pageList: number[] = [];
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if(this.totalRecords() > 0){
-      this.page = 1;
-      this.setPageList();
-    }
+  totalRecords$ = toObservable(this.totalRecords);
+  recordsPerPage$ = toObservable(this.recordsPerPage);
+  paginationReset$ = toObservable(this.paginationReset);
+
+
+  ngOnInit(): void {
+    this.store.setTotalRecords(this.totalRecords$);
+    this.store.setRecordsPerPage(this.recordsPerPage$);
+    this.store.setPaginationReset(this.paginationReset$);
+
+  }
+
+  constructor() {
+    effect(() => {
+      const page = this.store.page(); 
+      if(page.toLoad){
+        this.pageSelected.emit(page.index);
+      }
+    })
   }
 
   previousPage(){
-    if(this.page > 1){
-      this.page--;
-      this.pageSelected.emit(this.page);
-    }
+    if(this.store.page().index > 1)
+      this.store.previousPage();
   }
 
   nextPage(){
-    let lastPage = Math.ceil(this.totalRecords() / this.recordsPerPage());
-    if(this.page < lastPage){
-      this.page++;
-      this.pageSelected.emit(this.page);
+    if(this.store.page().index < this.store.lastPage()){
+      this.store.nextPage();
     }
-  }
-
-  setPageList(){
-    const pages = [];
-    let lastPage = Math.ceil(this.totalRecords() / this.recordsPerPage());
-    pages.push(1);
-
-    for (let before = this.page - 3; before < this.page; before++) {
-      if(before > 1){
-        pages.push(before);
-      }
-    }
-
-    if(this.page > 1 && this.page < lastPage){
-      pages.push(this.page);
-    }
-
-    for (let after = this.page + 1; after <= this.page + 3; after++) {
-      if(after < lastPage){
-        pages.push(after);
-      }      
-    }
-
-    if(lastPage > 1)
-      pages.push(lastPage);
-
-    this.pageList = pages;
-  }
-
-  setPage(page: number){
-    this.page = page;
-    this.setPageList();
-    this.pageSelected.emit(page);
   }
 
 }
