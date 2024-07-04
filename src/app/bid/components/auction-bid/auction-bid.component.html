@@ -1,4 +1,4 @@
-@if(askingBid) {
+@if(store.ask(); as askingBid) {
     <div class="bidder-grid">
         <div class="item-container card">
             <div class="countdown-container">
@@ -13,12 +13,12 @@
                 <h2>Auction Is Over</h2>
                 <h2>Highest Bid: {{askingBid.reachedValue}}</h2>
             } @else {
-                <app-auction-bidding-form [askingBid]="askingBid.askValue" (bid)="placeBid($event)"></app-auction-bidding-form>
-                <h2>{{bidRejection}}</h2>
+                <app-auction-bidding-form [askingBid]="askingBid.askValue" (bid)="store.setBid($event)"></app-auction-bidding-form>
+                <h2>{{store.bidRejection()}}</h2>
             }
         </div>
     </div>
 }
-@if (error) {
+@if (store.error(); as error) {
     <app-error [error]="error"></app-error>
 }
