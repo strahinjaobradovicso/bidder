@@ -8,6 +8,7 @@ export function stateGuard(stateKey: string): CanActivateFn {
     if(stateData != undefined){
       return true;
     }
+    router.navigate(['']);
     return false;
   }
 };
