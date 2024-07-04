@@ -21,7 +21,7 @@ export class ItemService {
     for (const key in query) {
       if (Object.prototype.hasOwnProperty.call(query, key)) {
         const param = query[key as keyof ItemQuery];
-        if(!param)
+        if(param == undefined)
           continue;
         httpParams = httpParams.set(key, param);
       }

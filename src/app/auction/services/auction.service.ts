@@ -23,7 +23,7 @@ export class AuctionService {
     for (const key in query) {
       if (Object.prototype.hasOwnProperty.call(query, key)) {
         let param = query[key as keyof AuctionQuery];
-        if(!param)
+        if(param == undefined)
           continue;
         if(param instanceof Date){
           param = toUtc(param);
